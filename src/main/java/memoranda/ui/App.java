@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.util.Configuration;
@@ -142,6 +143,9 @@ public class App {
 		if (frame == null)
 			return;
 		frame.dispose();
+		// Found the Issue of the Close Error
+		// Wes Davis 01/25/2018
+		System.exit(0);
 	}
 
 	/**
