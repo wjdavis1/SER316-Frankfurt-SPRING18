@@ -144,6 +144,13 @@ public class App {
 		frame.dispose();
 	}
 
+	public static void minimizeWindow()
+	{
+		if (frame == null)
+			return;
+		frame.setState(Frame.ICONIFIED);
+	}
+
 	/**
 	 * Method showSplash.
 	 */
