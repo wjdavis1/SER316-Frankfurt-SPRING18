@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.util.Configuration;
@@ -35,8 +36,8 @@ public class App {
        The actual values are substituted by the Ant build script using 
        'version' property and datestamp.*/
 
-	public static final String VERSION_INFO = "@VERSION@";
-	public static final String BUILD_INFO = "@BUILD@";
+	public static final String VERSION_INFO = "1.0-rc3.1";
+	public static final String BUILD_INFO = "20180129.29";
 	
 	/*========================================================================*/
 
@@ -142,6 +143,9 @@ public class App {
 		if (frame == null)
 			return;
 		frame.dispose();
+		// Found the Issue of the Close Error
+		// Wes Davis 01/25/2018
+		System.exit(0);
 	}
 
 	public static void minimizeWindow()

@@ -23,3 +23,11 @@ After that go back to the initial version and start your SCRUM process and docum
 Good luck and have fun!
 
 Dr. Mehlhase
+
+Did a Test and Creation of a dev branch
+-Wes Davis
+
+so many permission woes for jsabbath
+
+Test for correct associated email address
+- James Ortner
