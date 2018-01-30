@@ -663,7 +663,12 @@ public class AppFrame extends JFrame {
         exitNotify();
         System.exit(0);
     }
-
+    
+    
+    //Found minimize error:
+    //WINDOW_ICONIFIED event now calls App.minimizeWindow() method
+    //Also updated WINDOW_CLOSING else clause on line 689
+    //Jesse Sabbath (jsabbath) 29-January-2018
     public void doMinimize() {
     	App.minimizeWindow();
     }
@@ -684,9 +689,10 @@ public class AppFrame extends JFrame {
             if (Configuration.get("ON_CLOSE").equals("exit"))
                 doExit();
             else
-		//doExit();
-	    	App.closeWindow();
-                //doMinimize();
+	    {
+	    	exitNotify();
+		App.closeWindow();
+	    }
         }
         else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
             super.processWindowEvent(new WindowEvent(this,
