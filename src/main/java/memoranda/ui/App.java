@@ -166,5 +166,5 @@ public class App {
 			(screenSize.height - 350) / 2);
 		splash.setUndecorated(true);
 		splash.setVisible(true);
-	
+	}	
 }
