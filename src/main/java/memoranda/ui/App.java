@@ -154,7 +154,9 @@ public class App {
 	private void showSplash() {
 		splash = new JFrame();
 		ImageIcon spl =
-			new ImageIcon(App.class.getResource("/ui/p2pSplash.png"));
+
+		new ImageIcon(App.class.getResource("/ui/p2pSplash.png"));
+
 		JLabel l = new JLabel();
 		l.setSize(500, 350);
 		l.setIcon(spl);
