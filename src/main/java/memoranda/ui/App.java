@@ -148,6 +148,13 @@ public class App {
 		System.exit(0);
 	}
 
+	public static void minimizeWindow()
+	{
+		if (frame == null)
+			return;
+		frame.setState(Frame.ICONIFIED);
+	}
+
 	/**
 	 * Method showSplash.
 	 */
@@ -168,5 +175,6 @@ public class App {
 			(screenSize.height - 350) / 2);
 		splash.setUndecorated(true);
 		splash.setVisible(true);
-	}	
+	}
+
 }
