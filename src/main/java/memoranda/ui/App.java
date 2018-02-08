@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.util.Configuration;
@@ -35,8 +36,8 @@ public class App {
        The actual values are substituted by the Ant build script using 
        'version' property and datestamp.*/
 
-	public static final String VERSION_INFO = "@VERSION@";
-	public static final String BUILD_INFO = "@BUILD@";
+	public static final String VERSION_INFO = "1.0-rc3.1";
+	public static final String BUILD_INFO = "20180129.29";
 	
 	/*========================================================================*/
 
@@ -142,6 +143,16 @@ public class App {
 		if (frame == null)
 			return;
 		frame.dispose();
+		// Found the Issue of the Close Error
+		// Wes Davis 01/25/2018
+		System.exit(0);
+	}
+
+	public static void minimizeWindow()
+	{
+		if (frame == null)
+			return;
+		frame.setState(Frame.ICONIFIED);
 	}
 
 	/**
@@ -150,17 +161,20 @@ public class App {
 	private void showSplash() {
 		splash = new JFrame();
 		ImageIcon spl =
-			new ImageIcon(App.class.getResource("/ui/splash.png"));
+
+		new ImageIcon(App.class.getResource("/ui/p2pSplash.png"));
+
 		JLabel l = new JLabel();
-		l.setSize(400, 300);
+		l.setSize(500, 350);
 		l.setIcon(spl);
 		splash.getContentPane().add(l);
-		splash.setSize(400, 300);
+		splash.setSize(500, 350);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		splash.setLocation(
-			(screenSize.width - 400) / 2,
-			(screenSize.height - 300) / 2);
+			(screenSize.width - 500) / 2,
+			(screenSize.height - 350) / 2);
 		splash.setUndecorated(true);
 		splash.setVisible(true);
 	}
+
 }
