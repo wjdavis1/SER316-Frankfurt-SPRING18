@@ -148,23 +148,33 @@ public class App {
 		System.exit(0);
 	}
 
+	public static void minimizeWindow()
+	{
+		if (frame == null)
+			return;
+		frame.setState(Frame.ICONIFIED);
+	}
+
 	/**
 	 * Method showSplash.
 	 */
 	private void showSplash() {
 		splash = new JFrame();
 		ImageIcon spl =
-			new ImageIcon(App.class.getResource("/ui/splash.jpg"));
+
+		new ImageIcon(App.class.getResource("/ui/p2pSplash.png"));
+
 		JLabel l = new JLabel();
-		l.setSize(400, 300);
+		l.setSize(500, 350);
 		l.setIcon(spl);
 		splash.getContentPane().add(l);
-		splash.setSize(400, 300);
+		splash.setSize(500, 350);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		splash.setLocation(
-			(screenSize.width - 400) / 2,
-			(screenSize.height - 300) / 2);
+			(screenSize.width - 500) / 2,
+			(screenSize.height - 350) / 2);
 		splash.setUndecorated(true);
 		splash.setVisible(true);
 	}
+
 }
