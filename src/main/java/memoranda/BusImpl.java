@@ -1,6 +1,14 @@
+/*
+ * AUTHOR: TRESOR CYUBAHIRO
+ * SER 316
+ * SPRING 2018
+ * FRANKFURT
+ * Bus implememntation
+ */
 package main.java.memoranda;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.Vector;
 
 public class BusImpl implements Bus {
@@ -14,6 +22,9 @@ public class BusImpl implements Bus {
 		numberOfSeats = 0;
 	}
 	
+	public void setID(int id) {
+		this.id = id;
+	}
 	public BusImpl(int id, int seats) {
 		this.id = id;
 		this.numberOfSeats = seats;
@@ -41,21 +52,21 @@ public class BusImpl implements Bus {
 	/*
 	 * @see main.java.memoranda.Bus#addToSchedule(java.sql.Date)
 	 */
-	public void addToSchedule(Date newSchedule) {
-		schedule.add(newSchedule);
+	public void addToSchedule(Date scheduleDate, Time scheduleTime) {
+		schedule.add(scheduleDate);
 	}
 	/*
 	 * @see main.java.memoranda.Bus#removeFromSchedule(java.sql.Date)
 	 */
-	public void removeFromSchedule(Date schedule) {
+	public void removeFromSchedule(Date scheduleDate, Time scheduleTime) {
 
 	}
 	/*
 	 * @see main.java.memoranda.Bus#getSchedule()
 	 */
-	public Date getSchedule() {
+	public Vector<Date> getSchedule() {
 
-		return new Date(0);
+		return schedule;
 	}
 	
 }
