@@ -34,6 +34,7 @@ public class WorkPanel extends JPanel {
 	public JButton notesB = new JButton();
 	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
 	public ResourcesPanel filesPanel = new ResourcesPanel();
+	public DriversPanel driverPanel = new DriversPanel(this);
 	public JButton agendaB = new JButton();
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
@@ -297,7 +298,7 @@ public class WorkPanel extends JPanel {
 	public void driversB_actionPerformed(ActionEvent e) {
 		System.out.println("Drivers has been pressed");
 		cardLayout1.show(panel, "DRIVERS");
-		dailyItemsPanel.selectPanel("EVENTS");
+		dailyItemsPanel.selectPanel("DRIVERS");
 		setCurrentButton(driversB);
 		Context.put("CURRENT_PANEL", "DRIVERS");
 	}
