@@ -226,6 +226,7 @@ public class WorkPanel extends JPanel {
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 		panel.add(filesPanel, "FILES");
+		panel.add(driverPanel, "DRIVERS");
 		toolBar.add(agendaB, null);
 		toolBar.add(eventsB, null);
 		toolBar.add(tasksB, null);
@@ -296,7 +297,7 @@ public class WorkPanel extends JPanel {
 	
 	//Driver Action Event When Button is pressed
 	public void driversB_actionPerformed(ActionEvent e) {
-		System.out.println("Drivers has been pressed");
+		System.out.println("[DEBUG] Drivers has been pressed");
 		cardLayout1.show(panel, "DRIVERS");
 		dailyItemsPanel.selectPanel("DRIVERS");
 		setCurrentButton(driversB);
