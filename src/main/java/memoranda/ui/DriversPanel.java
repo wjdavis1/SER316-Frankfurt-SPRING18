@@ -8,26 +8,25 @@ package main.java.memoranda.ui;
  */
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
-import javax.imageio.ImageIO;
+import main.java.memoranda.ui.AddDriverPanel;
+
 import javax.swing.*;
 import javax.swing.border.*;
-
 
 public class DriversPanel extends JPanel {
 	
 	BorderLayout borderLayout = new BorderLayout();
-	GridLayout information = new GridLayout(4,2,5,8);
+	GridLayout information = new GridLayout(5,2,5,8);
 	JPanel driverInformation = new JPanel();
 	JPanel driverList = new JPanel();
 	JPanel emptyPanel = new JPanel();
 	JToolBar driversToolBar = new JToolBar();
-	JButton addDriver,removeDriver, findDriver;
+	JButton addDriver,removeDriver, findDriver,editDriver;
 	JSplitPane driverInfoPane,driverPane;
-	ImageIcon add, remove, find;
-	JLabel firstName, lastName, driverID, age,driverImage, first, last, id, driverAge;
+	ImageIcon add, remove, find, edit;
+	JLabel firstName, lastName, driverID, age,driverImage,busID, first, last, id, driverAge, driverBusID;
+	AddDriverPanel newDriver;
 	
 	// The work panel is the parent panel for Driver and many other
 	// panels
@@ -51,31 +50,40 @@ public class DriversPanel extends JPanel {
 		add = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_new.png"));
 		remove = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_remove.png"));
 		find = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/help.png"));
-		
+		edit = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/editproject.png"));
 		addDriver = new JButton("Add Driver", add);
 		removeDriver = new JButton("Remove Driver", remove);
 		findDriver = new JButton("Find Driver", find);
+		editDriver = new JButton("Edit Driver Information", edit);
 		
 		firstName = new JLabel("First Name: ");
 		lastName = new JLabel("Last Name: ");
 		driverID = new JLabel("Driver ID: ");
 		age = new JLabel("Age: ");
+		busID = new JLabel("Bus ID: ");
 		
 		first = new JLabel("John");
 		last = new JLabel("Smith");
 		id = new JLabel("123456");
 		driverAge = new JLabel("32");
+		driverBusID = new JLabel("987654");
 		
 		first.setHorizontalTextPosition(SwingConstants.RIGHT);
+
+		addDriver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newDriverPanel();
+			}
+		});
 		
 		driversToolBar.setFloatable(false);
 		driversToolBar.addSeparator(new Dimension(8,24));
 		driversToolBar.addSeparator(new Dimension(8,24));
 		driversToolBar.add(addDriver);
 		driversToolBar.add(removeDriver);
+		driversToolBar.add(editDriver);
 		driversToolBar.addSeparator();
 		driversToolBar.add(findDriver);
-		
 
 		driverInformation.setLayout(information);
 		driverInformation.add(firstName);
@@ -86,6 +94,8 @@ public class DriversPanel extends JPanel {
 		driverInformation.add(driverAge);
 		driverInformation.add(driverID);
 		driverInformation.add(id);
+		driverInformation.add(busID);
+		driverInformation.add(driverBusID);
 	
 		driverList.add(new JLabel("Table of Drivers Goes Here", JLabel.CENTER));
 		
@@ -95,6 +105,10 @@ public class DriversPanel extends JPanel {
 		driverPane.setOneTouchExpandable(false);
 		this.add(driversToolBar, BorderLayout.NORTH);
 		this.add(driverPane);
+	}
+	
+	private void newDriverPanel() {
+		newDriver = new AddDriverPanel();
 	}
 
 }

@@ -14,12 +14,8 @@ import main.java.memoranda.date.CalendarDate;
 
 public interface Driver {
 
-	void setFirstName(String firstName);
-	void setLastName(String lastName);
-	void setDriverId(String id);
-	void setAge(int age);
-	
 	String getFullName();
 	String getDriverId();
+	String getBusID();
 	int getAge();
 }
