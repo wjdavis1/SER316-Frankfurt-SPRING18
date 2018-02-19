@@ -1,5 +1,12 @@
+
 package main.java.memoranda.ui;
 
+/**
+ * File Name: AddDriverPanel.java
+ * Description: A new JFrame window that allows the user to add Driver information
+ * Author: Wesley Davis
+ * Date: Feb 18th, 2018
+ */
 import javax.swing.*;
 
 import java.awt.*;
@@ -7,7 +14,10 @@ import java.awt.event.*;
 
 import main.java.memoranda.DriverImpl;
 
-
+/**
+ * Class: AddDriverPanel
+ * Description: SEE ABOVE FILE DESCRIPTION
+ */
 public class AddDriverPanel extends JFrame {
 	
 	JLabel firstName,lastName, driverAge, driverID, busID;
@@ -28,6 +38,15 @@ public class AddDriverPanel extends JFrame {
 		
 	}
 	
+	
+	/**
+	 * Method: jbInit
+	 * Inputs: None
+	 * Returns: Void
+	 * Description: Following convention from other frame initializers in this program, this
+	 * method initializes all of the components for the Frame while also initializing action
+	 * listeners for the buttons associated with creating a driver.
+	 */
 	public void jbInit() {
 		
 		this.setLayout(borderLayout);
@@ -91,6 +110,7 @@ public class AddDriverPanel extends JFrame {
 		confirmationPanel.add(cancel);
 		add(inputPanel, BorderLayout.NORTH);
 		add(confirmationPanel, BorderLayout.SOUTH);
+		
 		setVisible(true);
 
 	}

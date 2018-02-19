@@ -4,12 +4,13 @@ package main.java.memoranda;
  * Description: Implementation of the Driver Interface, used for 
  * storing Driver data such as name, age id if needed.
  * @author Wesley Davis
- *
+ * Date: Feb 18th, 2018
  */
 
-import nu.xom.Attribute;
-import nu.xom.Element;
-
+/**
+ * Class: DriverImpl
+ * Description: SEE FILE DESCRIPTION ABOVE
+ */
 public class DriverImpl implements Driver {
 	
 	private String firstName;
@@ -35,21 +36,45 @@ public class DriverImpl implements Driver {
 	}
 
 
+	/**
+	 * Method: getFullName
+	 * Input: None
+	 * Return: String
+	 * Description: Gets the Drivers full name
+	 */
 	@Override
 	public String getFullName() {
 		return firstName + " " + lastName;
 	}
 
+	/**
+	 * Method: getDriverId()
+	 * Input: None
+	 * Return: String
+	 * Description: Gets the Driver ID
+	 */
 	@Override
 	public String getDriverId() {
 		return driverID;
 	}
 	
+	/**
+	 * Method: getBusID
+	 * Input: None
+	 * Return: String
+	 * Description: Gets the Bus Id of the bus the driver is driving
+	 */
 	@Override
 	public String getBusID() {
 		return busID;
 	}
 
+	/**
+	 * Method: getAge
+	 * Input: None
+	 * Return: int
+	 * Description: Gets the Age of the driver
+	 */
 	@Override
 	public int getAge() {
 		return age;

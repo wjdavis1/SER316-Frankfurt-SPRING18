@@ -4,6 +4,7 @@ package main.java.memoranda.ui;
  * Description: The main panel for Driver information such as finding a driver, creating a driver,
  * and displaying a list of current drivers.
  * Author: Wesley Davis
+ * Date: Feb 18th, 2018
  * 
  */
 import java.awt.*;
@@ -12,8 +13,13 @@ import java.awt.event.*;
 import main.java.memoranda.ui.AddDriverPanel;
 
 import javax.swing.*;
-import javax.swing.border.*;
 
+/**
+ * 
+ * Class: Drivers Panel
+ * Description: SEE FILE DESCRIPTION ABOVE
+ *
+ */
 public class DriversPanel extends JPanel {
 	
 	BorderLayout borderLayout = new BorderLayout();
@@ -42,7 +48,14 @@ public class DriversPanel extends JPanel {
 	}
 	
 	
-	// Initializes the panel with layout and buttons
+	/**
+	 * Method: jbInit
+	 * Input: None
+	 * Return: Void
+	 * @throws Exception
+	 * @description Following naming convention found across the program contain this method to instantiate
+	 * the panel 
+	 */
 	void jbInit() throws Exception{
 		System.out.println("[DEBUG] Driver Panel has Been Created!");
 		
@@ -106,7 +119,12 @@ public class DriversPanel extends JPanel {
 		this.add(driversToolBar, BorderLayout.NORTH);
 		this.add(driverPane);
 	}
-	
+	/**
+	 * Method: newDriverPanel
+	 * Input: None
+	 * Return: Void
+	 * Description: Creates a new Add Driver Panel when the add driver button is pressed
+	 */
 	private void newDriverPanel() {
 		newDriver = new AddDriverPanel();
 	}
