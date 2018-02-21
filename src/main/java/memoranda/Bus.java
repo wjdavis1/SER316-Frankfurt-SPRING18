@@ -10,6 +10,7 @@ package main.java.memoranda;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Vector;
+import org.json.*;
 
 public interface Bus {
 	
@@ -22,5 +23,7 @@ public interface Bus {
 	void addToSchedule(Date scheduleDate, Time scheduleTime);				// Method to add a new schedule to bus schedule
 	void removeFromSchedule(Date scheduleDate, Time scheduleTime);			// Method to remove schedule from bus schedule
 	Vector<Date> getSchedule();								// Method to return full schedule of bus
+	void saveBus();											// Method to save Bus in storage
+	JSONObject readBusData();								// Method to read information of a bus
 	
 }
