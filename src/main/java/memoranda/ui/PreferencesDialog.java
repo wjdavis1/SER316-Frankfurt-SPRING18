@@ -272,6 +272,8 @@ public class PreferencesDialog extends JDialog {
 				closeHideRB_actionPerformed(e);
 			}
 		});
+		
+		/* =============================US #4======================================
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 3;
@@ -279,14 +281,15 @@ public class PreferencesDialog extends JDialog {
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(closeHideRB, gbc);
 		jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
-		jLabel3.setText(Local.getString("Look and feel:"));
+		jLabel3.setText(Local.getString("Fuck off:"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 4;
 		gbc.insets = new Insets(2, 10, 0, 15);
 		gbc.anchor = GridBagConstraints.EAST;
 		GeneralPanel.add(jLabel3, gbc);
-
+		
+		
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 4;
@@ -298,14 +301,14 @@ public class PreferencesDialog extends JDialog {
 		gbc.gridy = 5;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(lfSystemRB, gbc);
+		//GeneralPanel.add(lfSystemRB, gbc);
 
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 6;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(lfJavaRB, gbc);
+		//GeneralPanel.add(lfJavaRB, gbc);
 		lfGroup.add(lfCustomRB);
 		lfCustomRB.setText(Local.getString("Custom"));
 		lfCustomRB.addActionListener(new java.awt.event.ActionListener() {
@@ -328,6 +331,8 @@ public class PreferencesDialog extends JDialog {
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(classNameLabel, gbc);
 		lfClassName.setEnabled(false);
+		*/
+		
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 9;
