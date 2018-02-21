@@ -3,7 +3,7 @@
  * Author: James Ortner
  * Date: February 21st, 2018
  * 
- * Description: Holds a collection of routes, stores them into a file, and retrieves the file contents that holds driver
+ * Description: Holds a collection of routes, stores them into a file, and retrieves the file contents that holds route
  * information. When the Route panel loads up, a table of routes will be listed.
  * 
  */
@@ -21,7 +21,6 @@ import java.io.File;
 
 import main.java.memoranda.RouteImpl;
 import org.json.*;
-
 
 
 /**
@@ -59,7 +58,7 @@ public class RouteCollection implements JSONString, Serializable{
 		
 	}
 	
-	public boolean addDriver(RouteImpl newRoute) {
+	public boolean addRoute(RouteImpl newRoute) {
 		
 		for(String routeId : routeCollection.keySet()) {
 			
