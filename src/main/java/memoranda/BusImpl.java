@@ -19,6 +19,7 @@ import org.json.*;
 public class BusImpl implements Bus {
 	
 	private int id;
+	private String name;
 	private int numberOfSeats;
 	public static Vector<Date> schedule = new Vector<Date>();
 	private final String dataStorageFile = "../../resources/data/buses/buses.json";
@@ -83,7 +84,20 @@ public class BusImpl implements Bus {
 	 * @see main.java.memoranda.Bus#saveBus()
 	 */
 	public void saveBus() {
-		
+		JSONObject bus = new JSONObject();
+		   
+		try {
+			bus.put("name", name);
+			bus.put("id", id);
+			bus.put("seats", numberOfSeats);
+			
+			dataObj.put("id", bus);
+			exportJson();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 	
 	/*
@@ -91,11 +105,21 @@ public class BusImpl implements Bus {
 	 * @see main.java.memoranda.Bus#readBusData()
 	 */
 	public JSONObject readBusData() {
-		return new JSONObject();
+		
+		JSONObject bus = null;
+		importJson();
+		
+		try {
+			bus = (JSONObject) dataObj.get(name);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bus;
 	}
 	
-	  private void importJson() {
-	      try {
+  private void importJson() {
+	try {
 	    	  	dataIn = new FileInputStream(dataStorageFile);
 	    	  	dataObj = new JSONObject(new JSONTokener(dataIn));
 	    	  	System.out.println(dataObj.toString(2));

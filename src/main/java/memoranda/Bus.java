@@ -24,6 +24,6 @@ public interface Bus {
 	void removeFromSchedule(Date scheduleDate, Time scheduleTime);			// Method to remove schedule from bus schedule
 	Vector<Date> getSchedule();								// Method to return full schedule of bus
 	void saveBus();											// Method to save Bus in storage
-	JSONObject readBusData();								// Method to read information of a bus
+	JSONObject readBusData ();								// Method to read information of a bus
 	
 }
