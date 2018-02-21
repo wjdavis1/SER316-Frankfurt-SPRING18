@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import main.java.memoranda.DriverImpl;
+import main.java.memoranda.DriverCollection;
 
 /**
  * Class: AddDriverPanel
@@ -20,11 +21,11 @@ import main.java.memoranda.DriverImpl;
  */
 public class AddDriverPanel extends JFrame {
 	
-	JLabel firstName,lastName, driverAge, driverID, busID;
-	GridLayout gridLayout = new GridLayout(5,5,8,10);
+	JLabel firstName,lastName, driverAge, driverID, busID, phoneNumber;
+	GridLayout gridLayout = new GridLayout(6,6,8,10);
 	BorderLayout borderLayout = new BorderLayout();
 	JPanel inputPanel, confirmationPanel;
-	JTextField firstNameEntry, lastNameEntry, driverAgeEntry, driverIDEntry, driverBusID;
+	JTextField firstNameEntry, lastNameEntry, driverAgeEntry, driverIDEntry, driverBusID, driverPhone;
 	JButton add, cancel;
 	
 	public AddDriverPanel() {
@@ -55,13 +56,14 @@ public class AddDriverPanel extends JFrame {
 		driverAge = new JLabel("Age: ", SwingConstants.LEFT);
 		driverID = new JLabel("ID: ", SwingConstants.LEFT);
 		busID = new JLabel("Bus ID: ", SwingConstants.LEFT);
-		
+		phoneNumber = new JLabel("Phone #: ", SwingConstants.LEFT);
 		
 		firstNameEntry = new JTextField(10);
 		lastNameEntry = new JTextField(10);
 		driverAgeEntry = new JTextField(10);
 		driverIDEntry = new JTextField(10);
 		driverBusID = new JTextField(10);
+		driverPhone = new JTextField(10);
 		
 		add = new JButton("Add");
 		cancel = new JButton("Cancel");
@@ -81,6 +83,8 @@ public class AddDriverPanel extends JFrame {
 		inputPanel.add(driverIDEntry);
 		inputPanel.add(busID);
 		inputPanel.add(driverBusID);
+		inputPanel.add(phoneNumber);
+		inputPanel.add(driverPhone);
 		
 		
 		add = new JButton("Create Driver");
@@ -88,13 +92,7 @@ public class AddDriverPanel extends JFrame {
 		
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				DriverImpl newDriver = new DriverImpl(firstNameEntry.getText(),lastNameEntry.getText(),
-						driverIDEntry.getText(),driverBusID.getText(),Integer.parseInt(driverAgeEntry.getText()));
-				System.out.println("Driver Full Name: " + newDriver.getFullName());
-				System.out.println("Driver ID: " + newDriver.getDriverId());
-				System.out.println("Age: " + newDriver.getAge());
-				System.out.println("Bus ID: " + newDriver.getBusID());
-				JOptionPane.showMessageDialog(null, "Driver: " + newDriver.getFullName() + "has been created");
+				addDriver();
 				dispose();
 				
 			}
@@ -108,11 +106,31 @@ public class AddDriverPanel extends JFrame {
 		
 		confirmationPanel.add(add);
 		confirmationPanel.add(cancel);
-		add(inputPanel, BorderLayout.NORTH);
+		add(inputPanel, BorderLayout.CENTER);
 		add(confirmationPanel, BorderLayout.SOUTH);
 		
 		setVisible(true);
 
+	}
+	/**
+	 * Method: addDriver
+	 * Description: Adds a driver to the driver collection stored in a file within the system
+	 */
+	private void addDriver() {
+		DriverImpl newDriver = new DriverImpl(firstNameEntry.getText(),lastNameEntry.getText(),
+				driverIDEntry.getText(),driverBusID.getText(),Integer.parseInt(driverAgeEntry.getText()),driverPhone.getText());
+		DriverCollection driverCollection = new DriverCollection("drivers.json");
+		if(driverCollection.addDriver(newDriver)) {
+			JOptionPane.showMessageDialog(this, "Driver: " + newDriver.getFullName() + " has been created! ");
+			System.out.println("Driver Full Name: " + newDriver.getFullName());
+			System.out.println("Driver ID: " + newDriver.getDriverId());
+			System.out.println("Age: " + newDriver.getAge());
+			System.out.println("Bus ID: " + newDriver.getBusID());
+			System.out.println("Phone #: " +  newDriver.getPhoneNumber());
+		}else {
+			JOptionPane.showMessageDialog(this, "Driver cannot be added, Driver Already Exists");
+		}
+		
 	}
 
 }

@@ -16,4 +16,5 @@ public interface Driver {
 	String getDriverId();
 	String getBusID();
 	int getAge();
+	String getPhoneNumber();
 }

@@ -10,8 +10,6 @@ package main.java.memoranda.ui;
 import java.awt.*;
 import java.awt.event.*;
 
-import main.java.memoranda.ui.AddDriverPanel;
-
 import javax.swing.*;
 
 /**
