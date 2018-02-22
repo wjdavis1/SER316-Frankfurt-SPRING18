@@ -25,9 +25,17 @@ import java.awt.event.ActionEvent;
 public class TourPanel extends JPanel {
 	
 	public TourPanel() {
-		
+	    try {
+	      jbInit();
+	    }
+	    catch(Exception ex) {
+	      new ExceptionDialog(ex);
+	    }
+	}
+		  
+	void jbInit() throws Exception {
 		//this.setLayout(new BorderLayout());
-		this.setLayout(new FlowLayout());
+		setLayout(new FlowLayout());
 		JPanel topPanel = new JPanel();
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setLayout(new FlowLayout());
@@ -43,12 +51,7 @@ public class TourPanel extends JPanel {
 		bottomPanel.add(input);
 		bottomPanel.add(button);
 		
-		this.add(topPanel);
-		this.add(bottomPanel);
-		
-
-		
-		
-		
+		add(topPanel);
+		add(bottomPanel);	
 	}
 }
