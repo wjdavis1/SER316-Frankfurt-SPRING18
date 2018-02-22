@@ -13,5 +13,4 @@ public interface Route {
 	String getDestination();
 	String getRouteId();
 	String getStartPoint();
-	String getEndPoint();
 }

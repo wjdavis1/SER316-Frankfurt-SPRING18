@@ -17,20 +17,17 @@ public class RouteImpl implements Route {
 	private String destination;
 	private String routeId;
 	private String startPoint;
-	private String endPoint;
 
 	public RouteImpl() {
 		destination = null;
 		routeId = null;
 		startPoint = null;
-		endPoint = null;
 	}
 	
 	public RouteImpl(String destination, String routeId, String startPoint, String endPoint) {
 		this.destination = destination;
 		this.routeId = routeId;
 		this.startPoint = startPoint;
-		this.endPoint = endPoint;
 	}
 
 	/**
@@ -65,17 +62,4 @@ public class RouteImpl implements Route {
 	public String getStartPoint() {
 		return startPoint;
 	}
-	
-	/**
-	 * Method: getEndPoint
-	 * Input: None
-	 * Return: String
-	 * Description: Gets the End Point of the route
-	 */
-	@Override
-	public String getEndPoint() {
-		return endPoint;
-	}
-	
-
 }
