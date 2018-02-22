@@ -35,6 +35,10 @@ public class DriverCollection implements JSONString, Serializable{
 	
 	private String driversDataPath = "/data/drivers/";
 	private File driversFile;
+	private FileInputStream in;
+	private FileOutputStream out;
+	
+	private String driverID;
 	
 	public DriverCollection(String fileName) {
 		driversDataPath += fileName;
@@ -43,6 +47,24 @@ public class DriverCollection implements JSONString, Serializable{
 		driversFile = new File(main.java.memoranda.ui.AppFrame.class.getResource(driversDataPath).getFile());
 		if(driversFile.exists() && !driversFile.isDirectory()) {
 			System.out.println("File Exists!");
+			try {
+				in = new FileInputStream(driversFile);
+				JSONObject obj = new JSONObject(new JSONTokener(in));
+				String[] driverIDs = JSONObject.getNames(obj);
+				for(int i = 0; i < driverIDs.length; i++) {
+					System.out.println(driverIDs[i]);
+					Driver driver = new DriverImpl((JSONObject)obj.getJSONObject(driverIDs[i]));
+					driverCollection.put(driverIDs[i], driver);
+				}
+				
+				in.close();
+				
+				for(String driverID: driverCollection.keySet()) {
+					System.out.println(driverID + " Driver Name: " + driverCollection.get(driverID).getFullName()); 
+				}
+			}catch(IOException ioe) {
+				System.out.println(ioe.getMessage());
+			}
 		}else {
 			driversFile = new File(this.driversDataPath + fileName);
 			try {
@@ -63,12 +85,27 @@ public class DriverCollection implements JSONString, Serializable{
 		
 		for(String driverID : driverCollection.keySet()) {
 			
-			if(!newDriver.getDriverId().equals(driverID)) {
+			if(newDriver.getDriverId().equals(driverID)) {
+				return false;
+			}else {
 				driverCollection.put(newDriver.getDriverId(), newDriver);
 				return true;
 			}
 		}
 		return false;
+		
+	}
+	
+	public void saveToFile() throws IOException {
+		FileOutputStream out = new FileOutputStream(driversFile);
+		JSONObject obj = new JSONObject();
+		for(String driverID : driverCollection.keySet()) {
+			obj.put(driverID, driverCollection.get(driverID).toJsonObject());
+		}
+		//out.write(obj);
+	}
+	
+	public void readFromFile() {
 		
 	}
 

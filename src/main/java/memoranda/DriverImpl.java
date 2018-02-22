@@ -20,7 +20,6 @@ public class DriverImpl implements Driver, Serializable {
 	private String firstName;
 	private String lastName;
 	private String driverID;
-	private String busID;
 	private String phoneNumber;
 	private int age;
 	
@@ -28,7 +27,6 @@ public class DriverImpl implements Driver, Serializable {
 		firstName = null;
 		lastName = null;
 		driverID = null;
-		busID = null;
 		age = 0;
 	}
 	
@@ -36,17 +34,15 @@ public class DriverImpl implements Driver, Serializable {
 		firstName = (String)obj.get("firstName");
 		lastName = (String)obj.get("lastName");
 		driverID = (String)obj.get("driverID");
-		busID = (String)obj.get("busID");
 		phoneNumber = (String)obj.get("phoneNumber");
 		age = obj.getInt("age");
 		
 	}
 	
-	public DriverImpl(String firstName, String lastName, String driverID, String busID,int age, String phoneNumber) {
+	public DriverImpl(String firstName, String lastName, String driverID ,int age, String phoneNumber) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.driverID = driverID;
-		this.busID = busID;
 		this.age = age;
 		this.phoneNumber = phoneNumber;
 	}
@@ -72,17 +68,6 @@ public class DriverImpl implements Driver, Serializable {
 	@Override
 	public String getDriverId() {
 		return driverID;
-	}
-	
-	/**
-	 * Method: getBusID
-	 * Input: None
-	 * Return: String
-	 * Description: Gets the Bus Id of the bus the driver is driving
-	 */
-	@Override
-	public String getBusID() {
-		return busID;
 	}
 
 	/**
@@ -118,10 +103,15 @@ public class DriverImpl implements Driver, Serializable {
 		obj.put("firtName", firstName);
 		obj.put("lastName", lastName);
 		obj.put("driverID", driverID);
-		obj.put("busID", busID);
 		obj.put("phoneNumber", phoneNumber);
 		obj.put("age", age);
 		return obj;
+	}
+	
+	public String toJSONString() {
+		String jsonString;
+		jsonString = toJsonObject().toString();
+		return jsonString;
 	}
 	
 

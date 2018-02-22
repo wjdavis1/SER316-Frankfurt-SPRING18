@@ -21,12 +21,14 @@ import main.java.memoranda.DriverCollection;
  */
 public class AddDriverPanel extends JFrame {
 	
-	JLabel firstName,lastName, driverAge, driverID, busID, phoneNumber;
-	GridLayout gridLayout = new GridLayout(6,6,8,10);
+	JLabel firstName,lastName, driverAge, driverID, phoneNumber;
+	GridLayout gridLayout = new GridLayout(5,5,8,10);
+	GridLayout addInformation =  new GridLayout(2,1);
 	BorderLayout borderLayout = new BorderLayout();
 	JPanel inputPanel, confirmationPanel;
-	JTextField firstNameEntry, lastNameEntry, driverAgeEntry, driverIDEntry, driverBusID, driverPhone;
+	JTextField firstNameEntry, lastNameEntry, driverAgeEntry, driverIDEntry, driverPhone;
 	JButton add, cancel;
+	private DriverCollection driverCollection = new DriverCollection("drivers.json");
 	
 	public AddDriverPanel() {
 		super("Add Driver Information");
@@ -55,14 +57,12 @@ public class AddDriverPanel extends JFrame {
 		lastName = new JLabel("Last Name: ", SwingConstants.LEFT);
 		driverAge = new JLabel("Age: ", SwingConstants.LEFT);
 		driverID = new JLabel("ID: ", SwingConstants.LEFT);
-		busID = new JLabel("Bus ID: ", SwingConstants.LEFT);
 		phoneNumber = new JLabel("Phone #: ", SwingConstants.LEFT);
 		
 		firstNameEntry = new JTextField(10);
 		lastNameEntry = new JTextField(10);
 		driverAgeEntry = new JTextField(10);
 		driverIDEntry = new JTextField(10);
-		driverBusID = new JTextField(10);
 		driverPhone = new JTextField(10);
 		
 		add = new JButton("Add");
@@ -81,8 +81,6 @@ public class AddDriverPanel extends JFrame {
 		inputPanel.add(driverAgeEntry);
 		inputPanel.add(driverID);
 		inputPanel.add(driverIDEntry);
-		inputPanel.add(busID);
-		inputPanel.add(driverBusID);
 		inputPanel.add(phoneNumber);
 		inputPanel.add(driverPhone);
 		
@@ -118,14 +116,13 @@ public class AddDriverPanel extends JFrame {
 	 */
 	private void addDriver() {
 		DriverImpl newDriver = new DriverImpl(firstNameEntry.getText(),lastNameEntry.getText(),
-				driverIDEntry.getText(),driverBusID.getText(),Integer.parseInt(driverAgeEntry.getText()),driverPhone.getText());
-		DriverCollection driverCollection = new DriverCollection("drivers.json");
+				driverIDEntry.getText(),Integer.parseInt(driverAgeEntry.getText()),driverPhone.getText());
+		//DriverCollection driverCollection = new DriverCollection("drivers.json");
 		if(driverCollection.addDriver(newDriver)) {
 			JOptionPane.showMessageDialog(this, "Driver: " + newDriver.getFullName() + " has been created! ");
 			System.out.println("Driver Full Name: " + newDriver.getFullName());
 			System.out.println("Driver ID: " + newDriver.getDriverId());
 			System.out.println("Age: " + newDriver.getAge());
-			System.out.println("Bus ID: " + newDriver.getBusID());
 			System.out.println("Phone #: " +  newDriver.getPhoneNumber());
 		}else {
 			JOptionPane.showMessageDialog(this, "Driver cannot be added, Driver Already Exists");

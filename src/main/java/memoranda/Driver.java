@@ -1,5 +1,6 @@
 package main.java.memoranda;
 
+import org.json.JSONObject;
 
 /**
  * FileName: Driver.java
@@ -14,7 +15,8 @@ public interface Driver {
 
 	String getFullName();
 	String getDriverId();
-	String getBusID();
 	int getAge();
 	String getPhoneNumber();
+	JSONObject toJsonObject();
+	String toJSONString();
 }
