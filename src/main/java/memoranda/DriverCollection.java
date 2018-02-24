@@ -48,7 +48,8 @@ public class DriverCollection implements  Serializable{
 		driversDataPath += fileName;
 		System.out.println("[DEBUG]" +driversDataPath);
 		driverCollection = new HashMap<>();
-		driverIDs = driverCollection.keySet();
+		//driverIDs = new HashSet<>();
+		//driverIDs = driverCollection.keySet();
 		this.fileName = fileName;
 		readFromFile();
 	}
@@ -63,23 +64,13 @@ public class DriverCollection implements  Serializable{
 	 * purposes
 	 */
 	public boolean addDriver(DriverImpl newDriver) {
-		
 		boolean canAdd = false;
 		
-		for(String driverID : driverIDs) {
-			
-//			if(newDriver.getDriverId().equals(driverID)) {
-//				canAdd = false;
-//			}else {
-//				driverCollection.put(newDriver.getDriverId(), newDriver);
-//				canAdd = true;
-//			}
-			
-			if(!driverIDs.contains(driverID)) {
-				driverCollection.put(newDriver.getDriverId(), newDriver);
-				canAdd = true;
-			}
+		if(!driverCollection.containsKey(newDriver.getDriverId())) {
+			driverCollection.put(newDriver.getDriverId(), newDriver);
+			canAdd = true;
 		}
+		
 		return canAdd;
 		
 	}

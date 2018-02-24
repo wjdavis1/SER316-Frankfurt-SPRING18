@@ -23,9 +23,10 @@ import java.io.IOException;
 public class AddDriverPanel extends JFrame {
 	
 	JLabel firstName,lastName, driverAge, driverID, phoneNumber;
-	GridLayout gridLayout = new GridLayout(5,5,8,10);
-	GridLayout addInformation =  new GridLayout(2,1);
+	GridLayout gridLayout = new GridLayout(5,2, 8, 10);
+	GridLayout addInformation =  new GridLayout(2,1,5,5);
 	BorderLayout borderLayout = new BorderLayout();
+	FlowLayout flowLayout = new FlowLayout();
 	JPanel inputPanel, confirmationPanel;
 	JTextField firstNameEntry, lastNameEntry, driverAgeEntry, driverIDEntry, driverPhone;
 	JButton add, cancel;
@@ -35,7 +36,7 @@ public class AddDriverPanel extends JFrame {
 		super("Add Driver Information");
 		try {
 			jbInit();
-			pack();
+			
 		}catch(Exception exc) {
 			System.out.println(exc.getMessage());
 		}
@@ -53,7 +54,8 @@ public class AddDriverPanel extends JFrame {
 	 */
 	public void jbInit() {
 		
-		this.setLayout(borderLayout);
+		setLayout(borderLayout);
+		//setResizable(false);
 		firstName = new JLabel("First Name: ", SwingConstants.LEFT);
 		lastName = new JLabel("Last Name: ", SwingConstants.LEFT);
 		driverAge = new JLabel("Age: ", SwingConstants.LEFT);
@@ -69,7 +71,7 @@ public class AddDriverPanel extends JFrame {
 		add = new JButton("Add");
 		cancel = new JButton("Cancel");
 		
-		setSize(200,200);
+		setSize(400,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		inputPanel = new JPanel();
 		confirmationPanel = new JPanel();
@@ -104,10 +106,14 @@ public class AddDriverPanel extends JFrame {
 		
 		confirmationPanel.add(add);
 		confirmationPanel.add(cancel);
-		inputPanel.setBounds(0,0,300, 300);
+		//confirmationPanel.setLayout(addInformation);
+		inputPanel.setPreferredSize(new Dimension(600,150));;
+		inputPanel.setLayout(gridLayout);
+		inputPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		add(inputPanel, BorderLayout.CENTER);
 		add(confirmationPanel, BorderLayout.SOUTH);
-		
+		pack();
+		setLocationRelativeTo(null);
 		setVisible(true);
 
 	}
@@ -123,12 +129,13 @@ public class AddDriverPanel extends JFrame {
 		//DriverCollection driverCollection = new DriverCollection("drivers.json");
 		//driverCollection.readFromFile();
 		driverCollection = new DriverCollection("drivers.json");
+		
 		if(driverCollection.addDriver(newDriver)) {
-			JOptionPane.showMessageDialog(this, "Driver: " + newDriver.getFullName() + " has been created! ");
-			System.out.println("Driver Full Name: " + newDriver.getFullName());
-			System.out.println("Driver ID: " + newDriver.getDriverId());
-			System.out.println("Age: " + newDriver.getAge());
-			System.out.println("Phone #: " +  newDriver.getPhoneNumber());
+			JOptionPane.showMessageDialog(this, "[DEBUG] Driver: " + newDriver.getFullName() + " has been created! ");
+			System.out.println("[DEBUG]nDriver Full Name: " + newDriver.getFullName());
+			System.out.println("[DEBUG] Driver ID: " + newDriver.getDriverId());
+			System.out.println("[DEBUG] Age: " + newDriver.getAge());
+			System.out.println("[DEBUG] Phone #: " +  newDriver.getPhoneNumber());
 			try {
 				driverCollection.saveToFile();
 			}catch(IOException ioe) {
