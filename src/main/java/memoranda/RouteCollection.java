@@ -10,8 +10,8 @@
 package main.java.memoranda;
 
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -30,7 +30,7 @@ import org.json.*;
  */
 public class RouteCollection implements JSONString, Serializable{
 	
-	private Map<String,Route> routeCollection;
+	private Map<String,RouteImpl> routeCollection;
 	
 	private String routeDataPath = "/data/routes/";
 	private File routesFile;
@@ -38,11 +38,12 @@ public class RouteCollection implements JSONString, Serializable{
 	public RouteCollection(String fileName) {
 		routeDataPath += fileName;
 		System.out.println("[DEBUG]" +routeDataPath);
-		routeDataPath = new HashMap<>();
+		routeCollection = new HashMap<>();
 		routesFile = new File(main.java.memoranda.ui.AppFrame.class.getResource(routeDataPath).getFile());
 		if(routesFile.exists() && !routesFile.isDirectory()) {
 			System.out.println("File Exists!");
-		}else {
+		}
+		else {
 			routesFile = new File(this.routeDataPath + fileName);
 			try {
 				if(routesFile.createNewFile()) {
