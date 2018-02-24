@@ -29,7 +29,7 @@ public class DriversPanel extends JPanel {
 	JButton addDriver,removeDriver, findDriver,editDriver;
 	JSplitPane driverInfoPane,driverPane;
 	ImageIcon add, remove, find, edit;
-	JLabel firstName, lastName, driverID, age,driverImage,busID, first, last, id, driverAge, driverBusID;
+	JLabel firstName, lastName, driverID, age,driverImage,phoneNumber, first, last, id, driverAge, driverPhoneNumber;
 	AddDriverPanel newDriver;
 	
 	// The work panel is the parent panel for Driver and many other
@@ -71,13 +71,13 @@ public class DriversPanel extends JPanel {
 		lastName = new JLabel("Last Name: ");
 		driverID = new JLabel("Driver ID: ");
 		age = new JLabel("Age: ");
-		busID = new JLabel("Bus ID: ");
+		phoneNumber = new JLabel("Phone #: ");
 		
 		first = new JLabel("John");
 		last = new JLabel("Smith");
 		id = new JLabel("123456");
 		driverAge = new JLabel("32");
-		driverBusID = new JLabel("987654");
+		driverPhoneNumber = new JLabel("(555)-555-5555");
 		
 		first.setHorizontalTextPosition(SwingConstants.RIGHT);
 
@@ -105,8 +105,8 @@ public class DriversPanel extends JPanel {
 		driverInformation.add(driverAge);
 		driverInformation.add(driverID);
 		driverInformation.add(id);
-		driverInformation.add(busID);
-		driverInformation.add(driverBusID);
+		driverInformation.add(phoneNumber);
+		driverInformation.add(driverPhoneNumber);
 	
 		driverList.add(new JLabel("Table of Drivers Goes Here", JLabel.CENTER));
 		

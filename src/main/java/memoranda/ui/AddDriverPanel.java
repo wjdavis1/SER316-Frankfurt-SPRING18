@@ -15,6 +15,7 @@ import java.awt.event.*;
 import main.java.memoranda.DriverImpl;
 import main.java.memoranda.DriverCollection;
 
+import java.io.IOException;
 /**
  * Class: AddDriverPanel
  * Description: SEE ABOVE FILE DESCRIPTION
@@ -28,7 +29,7 @@ public class AddDriverPanel extends JFrame {
 	JPanel inputPanel, confirmationPanel;
 	JTextField firstNameEntry, lastNameEntry, driverAgeEntry, driverIDEntry, driverPhone;
 	JButton add, cancel;
-	private DriverCollection driverCollection = new DriverCollection("drivers.json");
+	private DriverCollection driverCollection;
 	
 	public AddDriverPanel() {
 		super("Add Driver Information");
@@ -91,7 +92,6 @@ public class AddDriverPanel extends JFrame {
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				addDriver();
-				dispose();
 				
 			}
 		});
@@ -104,6 +104,7 @@ public class AddDriverPanel extends JFrame {
 		
 		confirmationPanel.add(add);
 		confirmationPanel.add(cancel);
+		inputPanel.setBounds(0,0,300, 300);
 		add(inputPanel, BorderLayout.CENTER);
 		add(confirmationPanel, BorderLayout.SOUTH);
 		
@@ -112,20 +113,35 @@ public class AddDriverPanel extends JFrame {
 	}
 	/**
 	 * Method: addDriver
+	 * Input: None
+	 * Return: None
 	 * Description: Adds a driver to the driver collection stored in a file within the system
 	 */
 	private void addDriver() {
 		DriverImpl newDriver = new DriverImpl(firstNameEntry.getText(),lastNameEntry.getText(),
 				driverIDEntry.getText(),Integer.parseInt(driverAgeEntry.getText()),driverPhone.getText());
 		//DriverCollection driverCollection = new DriverCollection("drivers.json");
+		//driverCollection.readFromFile();
+		driverCollection = new DriverCollection("drivers.json");
 		if(driverCollection.addDriver(newDriver)) {
 			JOptionPane.showMessageDialog(this, "Driver: " + newDriver.getFullName() + " has been created! ");
 			System.out.println("Driver Full Name: " + newDriver.getFullName());
 			System.out.println("Driver ID: " + newDriver.getDriverId());
 			System.out.println("Age: " + newDriver.getAge());
 			System.out.println("Phone #: " +  newDriver.getPhoneNumber());
+			try {
+				driverCollection.saveToFile();
+			}catch(IOException ioe) {
+				System.out.println(ioe.getMessage());
+			}
+			dispose();
 		}else {
 			JOptionPane.showMessageDialog(this, "Driver cannot be added, Driver Already Exists");
+			firstNameEntry.setText(null);
+			lastNameEntry.setText(null);
+			driverIDEntry.setText(null);
+			driverAgeEntry.setText(null);
+			driverPhone.setText(null);
 		}
 		
 	}

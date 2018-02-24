@@ -100,7 +100,7 @@ public class DriverImpl implements Driver, Serializable {
 	 */
 	public JSONObject toJsonObject() {
 		JSONObject obj = new JSONObject();
-		obj.put("firtName", firstName);
+		obj.put("firstName", firstName);
 		obj.put("lastName", lastName);
 		obj.put("driverID", driverID);
 		obj.put("phoneNumber", phoneNumber);
@@ -108,6 +108,13 @@ public class DriverImpl implements Driver, Serializable {
 		return obj;
 	}
 	
+	/**
+	 * Method: toJSONString
+	 * Input: None
+	 * Return: None
+	 * 
+	 * Description: Converts the JSONObject of this class into a string
+	 */
 	public String toJSONString() {
 		String jsonString;
 		jsonString = toJsonObject().toString();
