@@ -1,6 +1,8 @@
 package main.java.memoranda;
 /**
 + * File Name: TourCollection.java
+
+
 + * Description: The class creates and populates a Vector of TourImpl objects by reading in a JSON file 
 + * 		parsing the data into separate TourImpl objects, as well as writing the Vector's TourImpl objects 
 			back to the JSON file as a single JSONObject 
@@ -14,11 +16,13 @@ import org.json.JSONTokener;
 import main.java.memoranda.TourImpl;
 import java.util.Vector;
 
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.File;
+import java.io.FileWriter;
 
 
 
@@ -27,7 +31,7 @@ public class TourCollection  {
 	Vector<TourImpl> tourList;
 	TourImpl tour;
 	String tourCollectionFilePath = "src/main/resources/data/tours/tours.json";
-	 FileInputStream in;
+	 FileReader in;
 	
 	public TourCollection() {
 		tourList = null;
@@ -37,7 +41,7 @@ public class TourCollection  {
 	
 	public TourCollection(String fileName){
 		try{
-			in = new FileInputStream(fileName);
+			in = new FileReader(fileName);
 			importTourCollection();
 			in.close();
 	     }
@@ -74,12 +78,35 @@ public class TourCollection  {
 		     JSONObject obj = new JSONObject(new JSONTokener(in));
 		     String [] tours = JSONObject.getNames(obj);
 		 
-		     for (int i=0; i< tours.length; i++) {
+		     for (int i=0; i < tours.length; i++) {
 		    	 tour = new TourImpl((JSONObject)obj.getJSONObject(tours[i]));
 		     	 tourList.addElement(tour);
 		     }
 	
 	      
+	  }
+	  
+	  public void exportTourCollection()  {
+		  
+		  try {
+		  FileWriter out = new FileWriter(tourCollectionFilePath);
+		  JSONObject obj = new JSONObject();
+			 
+		  	for (int i = 0; i < tourList.size(); i++) {
+			  obj.put(tourList.elementAt(i).getTourID(), tourList.elementAt(i).toJSONObject());
+		  	}
+		  	out.write(obj.toString());
+		  	out.close();
+		  }
+		  catch (FileNotFoundException e){
+			  System.out.println(e.getMessage());
+		  }
+		  catch (IOException e) {
+			  System.out.println(e.getMessage());
+		  }
+		  
+		
+		  
 	  }
 	  
 	/* public static void main(String[] args) {                                 //DEBUG

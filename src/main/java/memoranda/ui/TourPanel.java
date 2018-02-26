@@ -42,7 +42,7 @@ import main.java.memoranda.TourImpl;
 import main.java.memoranda.ui.TourTable;
 import main.java.memoranda.util.Local;
 import main.java.memoranda.TourCollection;
-import main.java.memoranda.ui.AddTourPanel;
+import main.java.memoranda.ui.EditTourPanel;
 
 import java.util.Vector;
 
@@ -75,27 +75,7 @@ public class TourPanel extends JPanel {
 		JButton button = new JButton("Save Tour Info");
 		//JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		
-		
-		DefaultTableModel dtm = new DefaultTableModel(200, 6);	
-		dtm.addRow(tourCollection.getTourList());
-		
-		TourTable tourTable = new TourTable();
-		//tourTable.setTableHeader(new JTableHeader());
-		tourTable.setModel(dtm);
-		tourTable.setRowHeight(20);
-		tourTable.setShowVerticalLines(true);
-		tourTable.setShowHorizontalLines(true);
-		tourTable.setGridColor(Color.GRAY);
-		
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.getViewport().add(tourTable);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		
-		
-		//topPanel.add(scrollPane);
-		
-		horizPane.setRightComponent(scrollPane);
+		horizPane.setRightComponent(new TourTable());
 		horizPane.setLeftComponent(new JPanel());
 		horizPane.setDividerLocation(266);
 		
@@ -137,8 +117,7 @@ public class TourPanel extends JPanel {
 		add(tourToolbar, BorderLayout.NORTH);
 		add(horizPane, BorderLayout.CENTER);
 		
-		setVisible(true);
-		
+		setVisible(true);		
 	}
 	
 	/**
@@ -147,7 +126,7 @@ public class TourPanel extends JPanel {
 	 */
 	void addTourB_actionPerformed(ActionEvent e) {
 		System.out.println("Add Button");
-		AddTourPanel addTourPanel = new AddTourPanel(App.getFrame(), Local.getString(""), tourCollection);
+		EditTourPanel addTourPanel = new EditTourPanel(App.getFrame(), Local.getString(""), tourCollection);
 		Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
         addTourPanel.daySelectorCB.setBackground(Color.WHITE);
@@ -159,7 +138,7 @@ public class TourPanel extends JPanel {
 	}
 	
 	void deleteTourB_actionPerformed(ActionEvent e) {
-		AddTourPanel addTourPanel = new AddTourPanel(App.getFrame(), Local.getString(""), tourCollection);
+		EditTourPanel addTourPanel = new EditTourPanel(App.getFrame(), Local.getString(""), tourCollection);
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
 		addTourPanel.routeIDField.setEditable(false);
@@ -176,7 +155,7 @@ public class TourPanel extends JPanel {
 	}
 	
 	void editTourB_actionPerformed(ActionEvent e) {
-		AddTourPanel addTourPanel = new AddTourPanel(App.getFrame(), Local.getString(""), tourCollection);
+		EditTourPanel addTourPanel = new EditTourPanel(App.getFrame(), Local.getString(""), tourCollection);
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
 		addTourPanel.daySelectorCB.setBackground(Color.WHITE);
