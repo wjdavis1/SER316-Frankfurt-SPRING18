@@ -107,8 +107,15 @@ public class TourImpl implements Tour, Serializable {
 	}
 	
 	public String toString() {
-		String tourString = getBusID() + " " + getDriverID() + " " + getRouteID() + " " + getTourID();
+		String tourString = getTourID() + " " + getRouteID() + " " + getDriverID() + " " + getBusID();
 		return tourString;
+	}
+	
+	public boolean equals(TourImpl aTour) {
+		if (this.tourID.equals(aTour.tourID) && this.routeID.equals(aTour.getRouteID()) &&
+			this.driverID.equals(aTour.getDriverID()) && this.busID.equals(aTour.getBusID()))
+			return true;
+		return false;
 	}
 	
 	

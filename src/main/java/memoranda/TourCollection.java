@@ -27,6 +27,7 @@ public class TourCollection  {
 	Vector<TourImpl> tourList;
 	TourImpl tour;
 	String tourCollectionFilePath = "src/main/resources/data/tours/tours.json";
+	 FileInputStream in;
 	
 	public TourCollection() {
 		tourList = null;
@@ -36,19 +37,9 @@ public class TourCollection  {
 	
 	public TourCollection(String fileName){
 		try{
-	    	  
-			 tourList = new Vector<TourImpl>();
-			 FileInputStream in = new FileInputStream(tourCollectionFilePath);
-			
-		     JSONObject obj = new JSONObject(new JSONTokener(in));
-		     String [] tours = JSONObject.getNames(obj);
-		 
-		     for (int i=0; i< tours.length; i++) {
-		    	 tour = new TourImpl((JSONObject)obj.getJSONObject(tours[i]));
-		     	 tourList.addElement(tour);
-		     }
-	
-	         in.close();
+			in = new FileInputStream(fileName);
+			importTourCollection();
+			in.close();
 	     }
 		
 	     catch (Exception ex) {
@@ -71,6 +62,24 @@ public class TourCollection  {
 				  aTour = tourList.elementAt(i);
 		  }
 		  return aTour;
+	  }
+	  
+	  public Vector getTourList( ) {
+		  return tourList; 
+	  }
+	  
+	  public void importTourCollection() {
+		  tourList = new Vector<TourImpl>();
+			
+		     JSONObject obj = new JSONObject(new JSONTokener(in));
+		     String [] tours = JSONObject.getNames(obj);
+		 
+		     for (int i=0; i< tours.length; i++) {
+		    	 tour = new TourImpl((JSONObject)obj.getJSONObject(tours[i]));
+		     	 tourList.addElement(tour);
+		     }
+	
+	      
 	  }
 	  
 	/* public static void main(String[] args) {                                 //DEBUG

@@ -29,7 +29,7 @@ public class TourTable extends JTable {
 	public void jbInit() {
 	
 		setAutoCreateRowSorter(true);
-		this.setTableHeader(new JTableHeader());
+		
 	}
 	
 }

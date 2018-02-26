@@ -30,6 +30,8 @@ import javax.swing.UIManager;
 import javax.swing.event.CaretEvent;
 
 import main.java.memoranda.util.Local;
+import main.java.memoranda.TourCollection;
+import main.java.memoranda.TourImpl;
 
 public class AddTourPanel extends JDialog {
 	
@@ -57,12 +59,14 @@ public class AddTourPanel extends JDialog {
     JComboBox daySelectorCB = new JComboBox();
     JComboBox monthSelectorCB = new JComboBox();
     JComboBox yearSelectorCB = new JComboBox();
+    TourCollection tourCollection; 
     
     public boolean CANCELLED = true;
 
-    public AddTourPanel(Frame frame, String title) {
+    public AddTourPanel(Frame frame, String title, TourCollection tourCollection) {
         super(frame, title, true);
         try {
+        	this.tourCollection = tourCollection;
             jbInit();
             pack();
         }
@@ -77,6 +81,10 @@ public class AddTourPanel extends JDialog {
 	 */
 	 
     void jbInit() throws Exception {
+    	for (int i = 0; i < tourCollection.getTourList().size(); i++)
+    	{
+    		System.out.println(tourCollection.getTourList().elementAt(i));
+    	}
     	
     	//set up main AddTourPanel and header
 		this.setResizable(false);
@@ -89,7 +97,9 @@ public class AddTourPanel extends JDialog {
             "/ui/icons/resource48.png")));
         dialogTitlePanel.add(header);
         this.getContentPane().add(dialogTitlePanel, BorderLayout.NORTH);
-        timeSelectorCB.setBackground(Color.WHITE);
+        
+        
+      
         timeSelectorCB.setSize(new Dimension(10,15));
         
         //Add tourID components
@@ -281,11 +291,32 @@ public class AddTourPanel extends JDialog {
 	 * set CANCELLED variable to false so we can know the user 
 	 * pressed the ok buton and close this dialog.
 	 */
+    
+    
 	 
     void okB_actionPerformed(ActionEvent e) {
-        CANCELLED = false;
-		this.dispose();
-    }
+    	if (this.header.getText().equals("Add Tour"))
+    		addTour();
+    	else if (this.header.getText().equals("Remove Tour"))
+    		removeTour();
+    	else 
+    		editTour();
+  
+    }/*
+    
+    void okB_actionPerformed(ActionEvent e) {
+    	String tourID = tourIDField.getText();
+   
+        for (int i = 0; i < tourCollection.getTourList().size(); i++) {
+         	TourImpl thisTour = (TourImpl)tourCollection.getTourList().elementAt(i);
+        	if	(thisTour.getTourID().equals(tourID))
+        		tourCollection.removeTour(thisTour);
+        	System.out.println(" ------ ");
+        	for (int j = 0; j < tourCollection.getTourList().size(); j++) {
+        		System.out.println(tourCollection.getTourList().elementAt(j));
+        	}
+        }
+    }*/
 
 	/**
 	 * close the dialog window
@@ -293,6 +324,51 @@ public class AddTourPanel extends JDialog {
 	 
     void cancelB_actionPerformed(ActionEvent e) {
         this.dispose();
+    }
+    
+    void addTour() {
+    	TourImpl newTour = new TourImpl(tourIDField.getText(), routeIDField.getText(), driverIDField.getText(), busIDField.getText());
+    	
+    	for (int j = 0; j < tourCollection.getTourList().size(); j++) {
+    		TourImpl existingTour = (TourImpl)tourCollection.getTourList().elementAt(j);
+	    			if(newTour.getTourID().equals(existingTour.getTourID())) {
+	    				System.out.println("Tour ID is already taken; Tour not added");
+	    				return;
+	    			}
+	    			
+	    			if(newTour.getRouteID().equals(existingTour.getRouteID()) &&
+	    					(newTour.getDriverID().equals(existingTour.getDriverID()) ||
+	    					newTour.getBusID().equals(existingTour.getBusID()))) {
+	    				
+	    				System.out.println("Duplicate tour; Edit tour details");
+	    				return;
+	    			}	    		
+        	}
+    	System.out.println("-----------------");
+    	tourCollection.addTour(newTour);
+		for (int k = 0; k < tourCollection.getTourList().size(); k++) {
+			System.out.println(tourCollection.getTourList().elementAt(k));
+		}
+    	//CANCELLED = false;
+		//this.dispose();
+    }
+    
+    void removeTour() {
+    	String tourID = tourIDField.getText();
+    	   
+        for (int i = 0; i < tourCollection.getTourList().size(); i++) {
+         	TourImpl thisTour = (TourImpl)tourCollection.getTourList().elementAt(i);
+        	if	(thisTour.getTourID().equals(tourID))
+        		tourCollection.removeTour(thisTour);
+        	System.out.println(" ------ ");
+        	for (int j = 0; j < tourCollection.getTourList().size(); j++) {
+        		System.out.println(tourCollection.getTourList().elementAt(j));
+        	}
+        }
+    }
+    
+    void editTour() {
+    	System.out.println("Editor? I don't even know her.");
     }
 
 	
