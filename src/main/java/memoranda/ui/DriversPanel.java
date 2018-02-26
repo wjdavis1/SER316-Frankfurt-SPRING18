@@ -27,9 +27,9 @@ public class DriversPanel extends JPanel {
 	JPanel driverList = new JPanel();
 	JPanel emptyPanel = new JPanel();
 	JToolBar driversToolBar = new JToolBar();
-	JButton addDriver,removeDriver, findDriver,editDriver;
+	JButton addDriver,removeDriver, findDriver,editDriver,refreshList;
 	JSplitPane driverInfoPane,driverPane;
-	ImageIcon add, remove, find, edit;
+	ImageIcon add, remove, find, edit,refresh;
 	JLabel firstName, lastName, driverID, age,driverImage,phoneNumber, first, last, id, driverAge, driverPhoneNumber;
 	AddDriverPanel newDriver;
 	DriverTablePanel newTable;
@@ -64,10 +64,13 @@ public class DriversPanel extends JPanel {
 		remove = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_remove.png"));
 		find = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/help.png"));
 		edit = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/editproject.png"));
+		refresh = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png"));
+		
 		addDriver = new JButton("Add Driver", add);
 		removeDriver = new JButton("Remove Driver", remove);
 		findDriver = new JButton("Find Driver", find);
 		editDriver = new JButton("Edit Driver Information", edit);
+		refreshList = new JButton("Refresh Driver List", refresh);
 		
 		firstName = new JLabel("First Name: ");
 		lastName = new JLabel("Last Name: ");
@@ -89,6 +92,12 @@ public class DriversPanel extends JPanel {
 			}
 		});
 		
+		refreshList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshTable();
+			}
+		});
+		
 		driversToolBar.setFloatable(false);
 		driversToolBar.addSeparator(new Dimension(8,24));
 		driversToolBar.addSeparator(new Dimension(8,24));
@@ -97,6 +106,8 @@ public class DriversPanel extends JPanel {
 		driversToolBar.add(editDriver);
 		driversToolBar.addSeparator();
 		driversToolBar.add(findDriver);
+		driversToolBar.addSeparator();
+		driversToolBar.add(refreshList);
 
 		driverInformation.setLayout(information);
 		driverInformation.add(firstName);
@@ -131,6 +142,12 @@ public class DriversPanel extends JPanel {
 	 */
 	private void newDriverPanel() {
 		newDriver = new AddDriverPanel();
+	}
+	
+	private void refreshTable() {
+		newTable.refreshElements();
+		newTable.revalidate();
+		newTable.repaint();
 	}
 
 }

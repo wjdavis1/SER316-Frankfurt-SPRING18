@@ -131,7 +131,7 @@ public class AddDriverPanel extends JFrame {
 		driverCollection = new DriverCollection("drivers.json");
 		
 		if(driverCollection.addDriver(newDriver)) {
-			JOptionPane.showMessageDialog(this, "[DEBUG] Driver: " + newDriver.getFullName() + " has been created! ");
+			JOptionPane.showMessageDialog(this, "Driver: " + newDriver.getFullName() + " has been created! ");
 			System.out.println("[DEBUG]nDriver Full Name: " + newDriver.getFullName());
 			System.out.println("[DEBUG] Driver ID: " + newDriver.getDriverId());
 			System.out.println("[DEBUG] Age: " + newDriver.getAge());

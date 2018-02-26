@@ -19,18 +19,35 @@ import main.java.memoranda.DriverImpl;
 public class DriverTablePanel extends JPanel {
 	
 	private JTable table;
-	private HashMap<String,Driver> driverCollection;
-	private LinkedHashSet<String> driverIDs;
+	private static HashMap<String,Driver> driverCollection;
+	private String[] columnNames = {"Driver ID","First Name", "Last Name", "Phone Number", "Age" };
+	private Object[][] data;
 	private int index = 0;
 	
 	public DriverTablePanel() {
 		super(new GridLayout(1,0));
-			
-		String[] columnNames = {"Driver ID","First Name", "Last Name", "Phone Number", "Age" };
+		
+		refreshElements();
+		
+		table = new JTable(data,columnNames);
+		table.setPreferredScrollableViewportSize(new Dimension(1000,700));
+		table.setFillsViewportHeight(true);
+		JScrollPane scrollPane = new JScrollPane(table);
+		
+		add(scrollPane);
+	}
+	
+	/**
+	 * Method: refreshElements
+	 * Input: None
+	 * Return: 2-D Object Array
+	 * 
+	 * Description: The method refreshes the 2-D object array to get any new elements from the drivers.json
+	 * file, and attempts to update the table with new drivers;
+	 */
+	public Object[][] refreshElements() {
 		driverCollection = DriverCollection.getDrivers();
-		
-		
-		Object[][] data = new Object[driverCollection.keySet().size()][columnNames.length];
+		data = new Object[driverCollection.keySet().size()][columnNames.length];
 		
 		for(String driverID : driverCollection.keySet()) {
 			Driver driver = driverCollection.get(driverID);
@@ -42,12 +59,19 @@ public class DriverTablePanel extends JPanel {
 			index++;
 		}
 		
-		table = new JTable(data,columnNames);
-		table.setPreferredScrollableViewportSize(new Dimension(900,700));
-		table.setFillsViewportHeight(true);
-		JScrollPane scrollPane = new JScrollPane(table);
+		index = 0;
 		
-		add(scrollPane);
+		return data;
+	}
+	
+	/**
+	 * Method: refreshTable
+	 * Input: None
+	 * return: None
+	 * Description: Private Method that initializes and refreshes the table once run
+	 */
+	private void refreshTable() {
+		refreshElements();
 	}
 	
 }
