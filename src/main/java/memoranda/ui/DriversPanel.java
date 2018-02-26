@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import main.java.memoranda.ui.DriverTablePanel;
 
 /**
  * 
@@ -31,6 +32,7 @@ public class DriversPanel extends JPanel {
 	ImageIcon add, remove, find, edit;
 	JLabel firstName, lastName, driverID, age,driverImage,phoneNumber, first, last, id, driverAge, driverPhoneNumber;
 	AddDriverPanel newDriver;
+	DriverTablePanel newTable;
 	
 	// The work panel is the parent panel for Driver and many other
 	// panels
@@ -107,8 +109,12 @@ public class DriversPanel extends JPanel {
 		driverInformation.add(id);
 		driverInformation.add(phoneNumber);
 		driverInformation.add(driverPhoneNumber);
+		
+		newTable = new DriverTablePanel();
 	
-		driverList.add(new JLabel("Table of Drivers Goes Here", JLabel.CENTER));
+		//driverList.add(new JLabel("Table of Drivers Goes Here", JLabel.CENTER));
+
+		driverList.add(newTable);
 		
 		driverInfoPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,driverInformation, emptyPanel);
 		driverPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, driverInfoPane,driverList);

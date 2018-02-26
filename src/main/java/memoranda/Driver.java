@@ -14,6 +14,8 @@ import org.json.JSONObject;
 public interface Driver {
 
 	String getFullName();
+	String getFirstName();
+	String getLastName();
 	String getDriverId();
 	int getAge();
 	String getPhoneNumber();

@@ -14,11 +14,8 @@ package main.java.memoranda;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
-import java.util.HashSet;
-
 
 import java.io.FileInputStream;
-//import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
@@ -139,6 +136,35 @@ public class DriverCollection implements  Serializable{
 			}
 		}
 		
+	}
+	
+	/**
+	 * Method: getDrivers
+	 * Input: None
+	 * Return: HashMap with driver ids and information
+	 * Description: Static method that creates a new HashMap Drivers to be used with other panels
+	 * and other classes for data retrieval.
+	 */
+	public static HashMap<String,Driver> getDrivers(){
+		Map<String, Driver> drivers = new HashMap<String, Driver>();
+		String filePath = "/data/drivers/drivers.json";
+		File file = new File(main.java.memoranda.ui.AppFrame.class.getResource(filePath).getFile());
+		
+		try {
+			FileInputStream in = new FileInputStream(file);
+			JSONObject obj = new JSONObject(new JSONTokener(in));
+			
+			String[] ids = JSONObject.getNames(obj);
+			for(int i = 0; i < ids.length; i++) {
+				Driver newDriver = new DriverImpl((JSONObject)obj.getJSONObject(ids[i]));
+				drivers.put(ids[i], newDriver);
+			}
+			
+			in.close();
+		}catch(IOException ioe) {
+			System.out.println(ioe.getMessage());
+		}
+		return (HashMap<String,Driver>)drivers;
 	}
 
 }
