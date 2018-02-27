@@ -50,6 +50,8 @@ import java.util.Vector;
 public class TourPanel extends JPanel {
 	
 	TourCollection tourCollection = new TourCollection("src/main/resources/data/tours/tours.json");
+	JSplitPane horizPane;
+	TourTable tourTable;
 	
 	public TourPanel() {
 	    try {
@@ -64,18 +66,25 @@ public class TourPanel extends JPanel {
 		
 		setLayout(new BorderLayout());
 		
-		ImageIcon add, remove, find, edit;
-		JSplitPane horizPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		JButton addTour, deleteTour, editTour;
+		ImageIcon add;
+		ImageIcon remove;
+		ImageIcon find;
+		ImageIcon edit;
+		ImageIcon refresh;
+	
+		JButton addTour;
+		JButton deleteTour;
+		JButton editTour;
+		JButton refreshTourB;
 		JToolBar tourToolbar = new JToolBar();
 		JPanel topPanel = new JPanel();
 		JPanel bottomPanel = new JPanel();
 		JTextArea tourListArea = new JTextArea();
 		JTextField input = new JTextField();
-		JButton button = new JButton("Save Tour Info");
-		//JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-		
-		horizPane.setRightComponent(new TourTable());
+	
+		tourTable = new TourTable();
+		horizPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		horizPane.setRightComponent(tourTable);
 		horizPane.setLeftComponent(new JPanel());
 		horizPane.setDividerLocation(266);
 		
@@ -85,6 +94,7 @@ public class TourPanel extends JPanel {
 		remove = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_remove.png"));
 		find = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/help.png"));
 		edit = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/editproject.png"));
+        refresh = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png"));
 		
 		//addButtonListeners for Add/Remove/Edit
 		addTour = new JButton("Add Tour", add);
@@ -108,10 +118,18 @@ public class TourPanel extends JPanel {
             }
         });
 	    
+	    refreshTourB = new JButton("Refresh Table", refresh);
+        refreshTourB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                refreshTourB_actionPerformed(e);
+            }
+        });
+	    
 	    //Add Toolbar buttons
 		tourToolbar.add(addTour);
 		tourToolbar.add(deleteTour);
 		tourToolbar.add(editTour);
+		tourToolbar.add(refreshTourB);
 		
 		//Add Toolbar and Horizontal SplitPane
 		add(tourToolbar, BorderLayout.NORTH);
@@ -158,14 +176,25 @@ public class TourPanel extends JPanel {
 		EditTourPanel addTourPanel = new EditTourPanel(App.getFrame(), Local.getString(""), tourCollection);
 		Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
-		addTourPanel.daySelectorCB.setBackground(Color.WHITE);
-        addTourPanel.monthSelectorCB.setBackground(Color.WHITE);
-        addTourPanel.yearSelectorCB.setBackground(Color.WHITE);
-        addTourPanel.timeSelectorCB.setBackground(Color.WHITE);
-        
+		addTourPanel.tourIDField.setBackground(new Color(195,225,250));
+		addTourPanel.routeIDField.setBackground(new Color(195,225,250));
+        addTourPanel.driverIDField.setBackground(new Color(195,225,250));
+        addTourPanel.busIDField.setBackground(new Color(195,225,250));
+		addTourPanel.daySelectorCB.setBackground(new Color(195,225,250));
+        addTourPanel.monthSelectorCB.setBackground(new Color(195,225,250));
+        addTourPanel.yearSelectorCB.setBackground(new Color(195,225,250));
+        addTourPanel.timeSelectorCB.setBackground(new Color(195,225,250));     
 		addTourPanel.header.setText(Local.getString("Edit Tour"));
 		addTourPanel.setLocation((frmSize.width - addTourPanel.getSize().width) / 2 + loc.x, (frmSize.height - addTourPanel.getSize().height) / 2 + loc.y);
         addTourPanel.setVisible(true);
 		System.out.println("Edit Button");
 	}
+	
+	void refreshTourB_actionPerformed(ActionEvent e) {
+	    TourTable freshTable = new TourTable();
+	    horizPane.setRightComponent(freshTable);
+	    horizPane.setLeftComponent(new JPanel());
+        horizPane.setDividerLocation(266);
+	    System.out.println("Refresh Button");
+    }
 }

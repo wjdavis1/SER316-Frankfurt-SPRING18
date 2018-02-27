@@ -58,7 +58,6 @@ public class TourTable extends JPanel {
 		}
 	
 		JTable tourTable = new JTable(data,colNames);
-		
 		tourTable.setShowVerticalLines(true);
 		tourTable.setShowHorizontalLines(true);
 		tourTable.setGridColor(Color.GRAY);

@@ -304,21 +304,7 @@ public class EditTourPanel extends JDialog {
     	else 
     		editTour();
   
-    }/*
-    
-    void okB_actionPerformed(ActionEvent e) {
-    	String tourID = tourIDField.getText();
-   
-        for (int i = 0; i < tourCollection.getTourList().size(); i++) {
-         	TourImpl thisTour = (TourImpl)tourCollection.getTourList().elementAt(i);
-        	if	(thisTour.getTourID().equals(tourID))
-        		tourCollection.removeTour(thisTour);
-        	System.out.println(" ------ ");
-        	for (int j = 0; j < tourCollection.getTourList().size(); j++) {
-        		System.out.println(tourCollection.getTourList().elementAt(j));
-        	}
-        }
-    }*/
+    }
 
 	/**
 	 * close the dialog window
@@ -364,8 +350,13 @@ public class EditTourPanel extends JDialog {
 		for (int k = 0; k < tourCollection.getTourList().size(); k++) {
 			System.out.println(tourCollection.getTourList().elementAt(k));
 		}
+		
+		
     	//CANCELLED = false;
 		//this.dispose();
+        
+       
+
     }
     
     void removeTour() {
@@ -380,7 +371,7 @@ public class EditTourPanel extends JDialog {
         	for (int j = 0; j < tourCollection.getTourList().size(); j++) {
         		System.out.println(tourCollection.getTourList().elementAt(j));
         	}
-        }
+        }     
     }
     
     void editTour() {  
@@ -391,12 +382,12 @@ public class EditTourPanel extends JDialog {
     	
     	  for (int i = 0; i < tourCollection.getTourList().size(); i++) {
            	TourImpl thisTour = (TourImpl)tourCollection.getTourList().elementAt(i);
-           	TourImpl tempTour = (TourImpl)tourCollection.getTourList().elementAt(i);
+           	
           	if	(thisTour.getTourID().equals(tourID)) {
           		tourCollection.removeTour(thisTour);
           		tourCollection.addTour(newTour);
+          		tourCollection.exportTourCollection();
           	}
-    	  }
-
+    	}  
     }
 }
