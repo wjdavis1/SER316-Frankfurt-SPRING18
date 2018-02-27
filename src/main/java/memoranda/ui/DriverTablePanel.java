@@ -17,61 +17,79 @@ import main.java.memoranda.Driver;
 import main.java.memoranda.DriverImpl;
 
 public class DriverTablePanel extends JPanel {
-	
-	private JTable table;
-	private static HashMap<String,Driver> driverCollection;
-	private String[] columnNames = {"Driver ID","First Name", "Last Name", "Phone Number", "Age" };
-	private Object[][] data;
-	private int index = 0;
-	
-	public DriverTablePanel() {
-		super(new GridLayout(1,0));
-		
-		refreshElements();
-		
-		table = new JTable(data,columnNames);
-		table.setPreferredScrollableViewportSize(new Dimension(1000,700));
-		table.setFillsViewportHeight(true);
-		JScrollPane scrollPane = new JScrollPane(table);
-		
-		add(scrollPane);
-	}
-	
-	/**
-	 * Method: refreshElements
-	 * Input: None
-	 * Return: 2-D Object Array
-	 * 
-	 * Description: The method refreshes the 2-D object array to get any new elements from the drivers.json
-	 * file, and attempts to update the table with new drivers;
-	 */
-	public Object[][] refreshElements() {
-		driverCollection = DriverCollection.getDrivers();
-		data = new Object[driverCollection.keySet().size()][columnNames.length];
-		
-		for(String driverID : driverCollection.keySet()) {
-			Driver driver = driverCollection.get(driverID);
-			data[index][0] = driver.getDriverId();
-			data[index][1] = driver.getFirstName();
-			data[index][2] = driver.getLastName();
-			data[index][3] = driver.getPhoneNumber();
-			data[index][4] = driver.getAge();
-			index++;
-		}
-		
-		index = 0;
-		
-		return data;
-	}
-	
-	/**
-	 * Method: refreshTable
-	 * Input: None
-	 * return: None
-	 * Description: Private Method that initializes and refreshes the table once run
-	 */
-	private void refreshTable() {
-		refreshElements();
-	}
+
+    private JTable table;
+    private DriverTableModel newModel;
+
+    public DriverTablePanel() {
+        super(new GridLayout(1,0));
+
+        newModel = new DriverTableModel();
+        newModel.loadData();
+        table = new JTable(newModel);
+        table.setPreferredScrollableViewportSize(new Dimension(1000,700));
+        table.setFillsViewportHeight(true);
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        add(scrollPane);
+    }
+    
+    private class DriverTableModel extends AbstractTableModel{
+        private HashMap<String,Driver> driverCollection;
+        private String[] columnNames = {"Driver ID","First Name", "Last Name", "Phone Number", "Age" };
+        private Object[][] data;
+        private int index = 0;
+        
+        public void loadData() {
+            driverCollection = DriverCollection.getDrivers();
+            data = new Object[driverCollection.keySet().size()][columnNames.length];
+            
+            for(String driverID : driverCollection.keySet()) {
+                Driver driver = driverCollection.get(driverID);
+                data[index][0] = driver.getDriverId();
+                data[index][1] = driver.getFirstName();
+                data[index][2] = driver.getLastName();
+                data[index][3] = driver.getPhoneNumber();
+                data[index][4] = driver.getAge();
+                index++;
+            }
+
+            index = 0;
+        }
+        
+
+        @Override
+        public int getRowCount() {
+            // TODO Auto-generated method stub
+            return data.length;
+        }
+
+        @Override
+        public int getColumnCount() {
+            // TODO Auto-generated method stub
+            return columnNames.length;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            // TODO Auto-generated method stub
+            return data[rowIndex][columnIndex];
+        }
+        
+        public Class getColumnClass(int c) {
+            return getValueAt(0, c).getClass();
+        }
+        
+        public void setValueAt(Object value, int row, int col) {
+            data[row][col] = value;
+            fireTableCellUpdated(row, col);
+        }
+    }
+    
+    public void refreshTable() {
+        newModel.fireTableDataChanged();
+        table.revalidate();
+        table.repaint();
+    }
 	
 }

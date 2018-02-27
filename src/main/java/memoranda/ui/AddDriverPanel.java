@@ -132,12 +132,13 @@ public class AddDriverPanel extends JFrame {
 		
 		if(driverCollection.addDriver(newDriver)) {
 			JOptionPane.showMessageDialog(this, "Driver: " + newDriver.getFullName() + " has been created! ");
-			System.out.println("[DEBUG]nDriver Full Name: " + newDriver.getFullName());
+			System.out.println("[DEBUG] Driver Full Name: " + newDriver.getFullName());
 			System.out.println("[DEBUG] Driver ID: " + newDriver.getDriverId());
 			System.out.println("[DEBUG] Age: " + newDriver.getAge());
 			System.out.println("[DEBUG] Phone #: " +  newDriver.getPhoneNumber());
 			try {
 				driverCollection.saveToFile();
+				System.out.println("[DEBUG] Save successfull");
 			}catch(IOException ioe) {
 				System.out.println(ioe.getMessage());
 			}

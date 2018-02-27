@@ -145,9 +145,9 @@ public class DriversPanel extends JPanel {
 	}
 	
 	private void refreshTable() {
-		newTable.refreshElements();
-		newTable.revalidate();
-		newTable.repaint();
+	    newTable.refreshTable();
+	    newTable.revalidate();
+	    newTable.repaint();
 	}
 
 }

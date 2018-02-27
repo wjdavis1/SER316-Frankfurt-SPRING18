@@ -71,6 +71,25 @@ public class DriverCollection implements  Serializable{
 		return canAdd;
 		
 	}
+	
+	/**
+	 * Method: removeDriver
+	 * 
+	 * Input: DriverID
+	 * Return: Boolean
+	 * 
+	 * Description: Looks for 
+	 */
+	public boolean removeDriver(String driverID) {
+	    boolean canRemove = false;
+	    HashMap<String,Driver> drivers = getDrivers();
+	    
+	    if(drivers.containsKey(driverID)) {
+	        drivers.remove(driverID, drivers.get(driverID));
+	        canRemove = true;
+	    }
+	    return canRemove;
+	}
 	/**
 	 * Method saveToFile
 	 * 
