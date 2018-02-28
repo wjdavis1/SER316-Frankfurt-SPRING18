@@ -8,50 +8,28 @@ package main.java.memoranda.ui;
 + * Date: February 22, 2018
 + * 
 + */
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;	 
+import javax.swing.JPanel; 
 import javax.swing.JSplitPane;
-import javax.swing.JTable;
-import javax.swing.JToolBar;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JScrollPane;
-import javax.swing.JScrollBar;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.JButton;	 
+import javax.swing.ImageIcon;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Point;
-import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import main.java.memoranda.TourImpl;
 import main.java.memoranda.ui.TourTable;
 import main.java.memoranda.util.Local;
 import main.java.memoranda.TourCollection;
 import main.java.memoranda.ui.EditTourPanel;
 
-import java.util.Vector;
-
-
 public class TourPanel extends JPanel {
 	
 	TourCollection tourCollection = new TourCollection("src/main/resources/data/tours/tours.json");
 	JSplitPane horizPane;
-	TourTable tourTable;
+	TourTable tourTable = new TourTable();
 	
 	public TourPanel() {
 	    try {
@@ -68,34 +46,29 @@ public class TourPanel extends JPanel {
 		
 		ImageIcon add;
 		ImageIcon remove;
-		ImageIcon find;
 		ImageIcon edit;
 		ImageIcon refresh;
+		/*Future Implementation: 
+		ImageIcon find;*/
 	
 		JButton addTour;
 		JButton deleteTour;
 		JButton editTour;
 		JButton refreshTourB;
-		JToolBar tourToolbar = new JToolBar();
-		JPanel topPanel = new JPanel();
-		JPanel bottomPanel = new JPanel();
-		JTextArea tourListArea = new JTextArea();
-		JTextField input = new JTextField();
+		JToolBar tourToolbar;
 	
-		tourTable = new TourTable();
 		horizPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		horizPane.setRightComponent(tourTable);
 		horizPane.setLeftComponent(new JPanel());
 		horizPane.setDividerLocation(266);
 		
-		tourToolbar.setFloatable(false);
-		
 		add = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_new.png"));
 		remove = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_remove.png"));
-		find = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/help.png"));
 		edit = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/editproject.png"));
         refresh = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png"));
-		
+		//Possible Future Implementation: 
+        //find = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/help.png"));
+        
 		//addButtonListeners for Add/Remove/Edit
 		addTour = new JButton("Add Tour", add);
 	    addTour.addActionListener(new java.awt.event.ActionListener() {
@@ -126,6 +99,8 @@ public class TourPanel extends JPanel {
         });
 	    
 	    //Add Toolbar buttons
+        tourToolbar = new JToolBar();
+        tourToolbar.setFloatable(false);
 		tourToolbar.add(addTour);
 		tourToolbar.add(deleteTour);
 		tourToolbar.add(editTour);
@@ -143,7 +118,7 @@ public class TourPanel extends JPanel {
 	 * @param e
 	 */
 	void addTourB_actionPerformed(ActionEvent e) {
-		System.out.println("Add Button");
+		
 		EditTourPanel addTourPanel = new EditTourPanel(App.getFrame(), Local.getString(""), tourCollection);
 		Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
@@ -168,8 +143,7 @@ public class TourPanel extends JPanel {
 		addTourPanel.timeSelectorCB.setEditable(false);
 		addTourPanel.header.setText(Local.getString("Remove Tour"));
 		addTourPanel.setLocation((frmSize.width - addTourPanel.getSize().width) / 2 + loc.x, (frmSize.height - addTourPanel.getSize().height) / 2 + loc.y);
-        addTourPanel.setVisible(true);
-		System.out.println("Delete Button");
+        addTourPanel.setVisible(true);	
 	}
 	
 	void editTourB_actionPerformed(ActionEvent e) {
@@ -186,8 +160,7 @@ public class TourPanel extends JPanel {
         addTourPanel.timeSelectorCB.setBackground(new Color(195,225,250));     
 		addTourPanel.header.setText(Local.getString("Edit Tour"));
 		addTourPanel.setLocation((frmSize.width - addTourPanel.getSize().width) / 2 + loc.x, (frmSize.height - addTourPanel.getSize().height) / 2 + loc.y);
-        addTourPanel.setVisible(true);
-		System.out.println("Edit Button");
+        addTourPanel.setVisible(true);		
 	}
 	
 	void refreshTourB_actionPerformed(ActionEvent e) {
@@ -195,6 +168,6 @@ public class TourPanel extends JPanel {
 	    horizPane.setRightComponent(freshTable);
 	    horizPane.setLeftComponent(new JPanel());
         horizPane.setDividerLocation(266);
-	    System.out.println("Refresh Button");
     }
+	
 }

@@ -23,18 +23,16 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JFrame;
 import javax.swing.table.TableModel;
-import javax.swing.UIManager;
-import javax.swing.event.CaretEvent;
+import java.time.Month;
 
 import main.java.memoranda.util.Local;
 import main.java.memoranda.TourCollection;
 import main.java.memoranda.TourImpl;
-
+import javax.swing.JOptionPane;
 public class EditTourPanel extends JDialog {
 	
 	JLabel header = new JLabel();
@@ -59,8 +57,9 @@ public class EditTourPanel extends JDialog {
     JLabel yearLabel = new JLabel("Year: ");
     JComboBox timeSelectorCB = new JComboBox();
     JComboBox daySelectorCB = new JComboBox();
-    JComboBox monthSelectorCB = new JComboBox();
     JComboBox yearSelectorCB = new JComboBox();
+    JComboBox monthSelectorCB = new JComboBox();
+
     TourCollection tourCollection; 
     
     public boolean CANCELLED = true;
@@ -83,10 +82,6 @@ public class EditTourPanel extends JDialog {
 	 */
 	 
     void jbInit() throws Exception {
-    	for (int i = 0; i < tourCollection.getTourList().size(); i++)
-    	{
-    		System.out.println(tourCollection.getTourList().elementAt(i));
-    	}
     	
     	//set up main AddTourPanel and header
 		this.setResizable(false);
@@ -100,9 +95,8 @@ public class EditTourPanel extends JDialog {
         dialogTitlePanel.add(header);
         this.getContentPane().add(dialogTitlePanel, BorderLayout.NORTH);
         
-        
-      
-        timeSelectorCB.setSize(new Dimension(10,15));
+        //Populate ComboBoxes
+        setDateCB();
         
         //Add tourID components
         gbc = new GridBagConstraints();
@@ -172,12 +166,11 @@ public class EditTourPanel extends JDialog {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         areaPanel.add(busIDField, gbc);
         
-        areaPanel.add(new JSeparator(JSeparator.CENTER));
              
         //add date components
         gbc = new GridBagConstraints();
         gbc.gridwidth = 1;
-        gbc.gridx = 0; gbc.gridy = 4;
+        gbc.gridx = 0; gbc.gridy = 5;
         gbc.insets = new Insets(10, 15, 5, 15);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -185,7 +178,7 @@ public class EditTourPanel extends JDialog {
         
         gbc = new GridBagConstraints();
         gbc.gridwidth = 1;
-        gbc.gridx = 1; gbc.gridy = 4;
+        gbc.gridx = 1; gbc.gridy = 5;
         gbc.insets = new Insets(10, 15, 5, 15);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -193,7 +186,7 @@ public class EditTourPanel extends JDialog {
         
         gbc = new GridBagConstraints();
         gbc.gridwidth = 1;
-        gbc.gridx = 0; gbc.gridy = 5;
+        gbc.gridx = 0; gbc.gridy = 4;
         gbc.insets = new Insets(10, 15, 5, 15);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -201,7 +194,7 @@ public class EditTourPanel extends JDialog {
   
         gbc = new GridBagConstraints();
         gbc.gridwidth = 1;
-        gbc.gridx = 1; gbc.gridy = 5;
+        gbc.gridx = 1; gbc.gridy = 4;
         gbc.insets = new Insets(10, 15, 5, 15);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -239,24 +232,23 @@ public class EditTourPanel extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         areaPanel.add(timeSelectorCB, gbc);
-      
-        /*
+        
         gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 1;
-        gbc.insets = new Insets(5, 20, 5, 5);
+        gbc.gridwidth = 3;
+        gbc.gridx = 3; gbc.gridy = 5;
+        gbc.insets = new Insets(10, 15, 5, 15);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        areaPanel.add(jLabel1, gbc);
-        pathField.setMinimumSize(new Dimension(4, 24));
-        pathField.setPreferredSize(new Dimension(250, 24));
-        pathField.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(CaretEvent e) {
-                pathField_caretUpdate(e);
-            }
-        });*/
+        areaPanel.add(timeSelectorCB, gbc);
         
-       
+        monthSelectorCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                monthSelectorCB_actionPerformed(e);
+            }
+        });
+        
         this.getContentPane().add(areaPanel, BorderLayout.CENTER);
+        
         
         okB.setEnabled(true);
         okB.setMaximumSize(new Dimension(100, 26));
@@ -288,34 +280,36 @@ public class EditTourPanel extends JDialog {
 		//enableFields();
         this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
     }
-
-	/**
-	 * set CANCELLED variable to false so we can know the user 
-	 * pressed the ok buton and close this dialog.
-	 */
-    
-    
 	 
+    /**
+     * OkayButtonChoice
+     * @param e
+     */
     void okB_actionPerformed(ActionEvent e) {
     	if (this.header.getText().equals("Add Tour"))
     		addTour();
     	else if (this.header.getText().equals("Remove Tour"))
     		removeTour();
     	else 
-    		editTour();
-  
+    		editTour(); 
     }
 
+    
 	/**
 	 * close the dialog window
 	 */
-	 
     void cancelB_actionPerformed(ActionEvent e) {
         this.dispose();
     }
     
+    /**
+     * set CANCELLED variable to false so we can know the user 
+     * pressed the ok button and close this dialog.
+     */
     void addTour() {
-    	TourImpl newTour = new TourImpl(tourIDField.getText(), routeIDField.getText(), driverIDField.getText(), busIDField.getText());
+        String date = monthSelectorCB.getSelectedIndex() + " / " +  daySelectorCB.getSelectedItem() + " / " + yearSelectorCB.getSelectedItem();
+        String time = timeSelectorCB.getSelectedItem().toString();
+    	TourImpl newTour = new TourImpl(tourIDField.getText(), routeIDField.getText(), driverIDField.getText(), busIDField.getText(), date, time);
     	JDialog duplicateDialog = new JDialog(new JFrame(), "Error", true);
     	JButton okB = new JButton("Okay");
     	String dupeTourID = "Tour ID is taken.\nPlease edit Tour ID\n\n";
@@ -325,13 +319,14 @@ public class EditTourPanel extends JDialog {
 		duplicateDialog.setLocationRelativeTo(null);
 		
     	for (int j = 0; j < tourCollection.getTourList().size(); j++) {
-    		TourImpl existingTour = (TourImpl)tourCollection.getTourList().elementAt(j);
-	    			if(newTour.getTourID().equals(existingTour.getTourID())) {
-	    				System.out.println("Tour ID is already taken.\nTour not added.");
-	    				duplicateDialog.add(new JLabel(dupeTourID));
-	    				duplicateDialog.add(okB);
-	    				duplicateDialog.setVisible(true);
-	    				return;
+    	    
+    	    TourImpl existingTour = (TourImpl)tourCollection.getTourList().elementAt(j);
+    	    
+    		    if(newTour.getTourID().equals(existingTour.getTourID())) {
+	    			duplicateDialog.add(new JLabel(dupeTourID));
+	    			duplicateDialog.add(okB);
+	    			duplicateDialog.setVisible(true);
+	    			return;
 	    			}
 	    			
 	    			if(newTour.getRouteID().equals(existingTour.getRouteID()) &&
@@ -340,20 +335,18 @@ public class EditTourPanel extends JDialog {
 	    				duplicateDialog.add(new JLabel(dupeTourDetails));
 	    				duplicateDialog.add(okB);
 	    				duplicateDialog.setVisible(true);
-	    				System.out.println("Duplicate tour; Edit tour details");
 	    				return;
-	    			}	    		
-        	}
-    	System.out.println("-----------------");
+	    	}	    		
+        }
+    	
     	tourCollection.addTour(newTour);
     	tourCollection.exportTourCollection();
-		for (int k = 0; k < tourCollection.getTourList().size(); k++) {
-			System.out.println(tourCollection.getTourList().elementAt(k));
-		}
-		
-		
-    	//CANCELLED = false;
-		//this.dispose();
+
+		JFrame tourAddedFrame = new JFrame();
+		JOptionPane.showMessageDialog(tourAddedFrame, "Tour Added!");
+		tourAddedFrame.setVisible(true);
+    	CANCELLED = false;
+		this.dispose();
         
        
 
@@ -363,24 +356,38 @@ public class EditTourPanel extends JDialog {
     	String tourID = tourIDField.getText();
     	   
         for (int i = 0; i < tourCollection.getTourList().size(); i++) {
+            
          	TourImpl thisTour = (TourImpl)tourCollection.getTourList().elementAt(i);
+         	
         	if	(thisTour.getTourID().equals(tourID))
         		tourCollection.removeTour(thisTour);
-        	tourCollection.exportTourCollection();
-        	System.out.println(" ------ ");
-        	for (int j = 0; j < tourCollection.getTourList().size(); j++) {
-        		System.out.println(tourCollection.getTourList().elementAt(j));
-        	}
-        }     
+        	
+        	tourCollection.exportTourCollection();	
+        }  
+        
+        JFrame tourAddedFrame = new JFrame();
+        JOptionPane.showMessageDialog(tourAddedFrame, "Tour Removed!");
+        tourAddedFrame.setVisible(true);
+        this.dispose();
     }
     
+    /**
+     * 
+     */
     void editTour() {  
+        
+    	//create date/time table strings
+        String date = monthSelectorCB.getSelectedIndex() + " / " + daySelectorCB.getSelectedItem() + " / " + yearSelectorCB.getSelectedItem();
+        String time = timeSelectorCB.getSelectedItem().toString();
+        
+        //create new Tour object
+    	TourImpl newTour = new TourImpl(tourIDField.getText(), routeIDField.getText(), driverIDField.getText(), busIDField.getText(), date, time);
     	
-    
-    	TourImpl newTour = new TourImpl(tourIDField.getText(), routeIDField.getText(), driverIDField.getText(), busIDField.getText());
+    	//get searched Tour
     	String tourID = tourIDField.getText();
     	
-    	  for (int i = 0; i < tourCollection.getTourList().size(); i++) {
+    	//swap out old Tour for new
+    	for (int i = 0; i < tourCollection.getTourList().size(); i++) {
            	TourImpl thisTour = (TourImpl)tourCollection.getTourList().elementAt(i);
            	
           	if	(thisTour.getTourID().equals(tourID)) {
@@ -389,5 +396,62 @@ public class EditTourPanel extends JDialog {
           		tourCollection.exportTourCollection();
           	}
     	}  
+    	
+        JFrame tourAddedFrame = new JFrame();
+        JOptionPane.showMessageDialog(tourAddedFrame, "Tour Edited!");
+        tourAddedFrame.setVisible(true);
+        this.dispose();
     }
+    
+    
+    /**
+     * Populates the daySelectorCB
+     * @param e
+     */
+    public void monthSelectorCB_actionPerformed(ActionEvent e) {
+        int month = monthSelectorCB.getSelectedIndex();
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+            for (int i = 1; i < 32; i++) {
+                daySelectorCB.removeAll();
+                daySelectorCB.addItem(new Integer(i));
+            }
+        }
+        else if (month == 4 || month == 6 || month ==9 || month == 11) {
+            for (int i = 1; i < 31; i++) {
+                daySelectorCB.removeAll();
+                daySelectorCB.addItem(new Integer(i));
+            }
+        }
+        else 
+            for (int i = 1; i < 29; i++) {
+                daySelectorCB.removeAll();
+                daySelectorCB.addItem(new Integer(i));
+            }
+        
+         }
+    
+    public void setDateCB( ) {
+        monthSelectorCB.addItem("Month");
+        
+        for (Month month : Month.values()) {
+            monthSelectorCB.addItem(month);
+        }
+        
+        yearSelectorCB.addItem("Year");
+        for (int i = 2018; i < 2200; i++) {
+            yearSelectorCB.addItem(new Integer(i));
+        }
+        
+        daySelectorCB.addItem("Day");
+        timeSelectorCB.setSize(new Dimension(10,15));
+        timeSelectorCB.addItem("Please Choose a Time");
+        
+        for (int i = 8; i < 12; i++) {
+            String onHour = i + ":00am";
+            String halfHour = i + ":30am";
+            timeSelectorCB.addItem(onHour);
+            timeSelectorCB.addItem(halfHour);
+        }
+    }
+    
 }

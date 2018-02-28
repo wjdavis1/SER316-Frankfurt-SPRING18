@@ -43,18 +43,18 @@ public class TourTable extends JPanel {
 	public void jbInit() {
 		tourCollection = new TourCollection("src/main/resources/data/tours/tours.json");
 		
-		String[] colNames = {"Tour ID", "Route ID", "Driver ID", "Bus ID"};
+		String[] colNames = {"Tour ID", "Date", "Time", "Route ID", "Driver ID", "Bus ID"};
 		Object[][] data = new Object[tourCollection.getTourList().size()][colNames.length];
 
-
-		System.out.println(tourCollection.getTourList().size());
-		
 		for(int i = 0; i < tourCollection.getTourList().size(); i++) {
 			TourImpl tempTour = (TourImpl)tourCollection.getTourList().elementAt(i);
 				data[i][0] = tempTour.getTourID();
-				data[i][1] = tempTour.getRouteID();
-				data[i][2] = tempTour.getDriverID();
-				data[i][3] = tempTour.getBusID();				
+				data[i][1] = tempTour.getTime();
+				data[i][2] = tempTour.getDate();
+				data[i][3] = tempTour.getRouteID();
+				data[i][4] = tempTour.getDriverID();
+				data[i][5] = tempTour.getBusID();	
+				
 		}
 	
 		JTable tourTable = new JTable(data,colNames);
@@ -63,9 +63,10 @@ public class TourTable extends JPanel {
 		tourTable.setGridColor(Color.GRAY);
 		tourTable.setAutoCreateRowSorter(true);
 		tourTable.setPreferredScrollableViewportSize(new Dimension(900,700));
-		//tourTable.setFillsViewportHeight(true);
+		tourTable.setFillsViewportHeight(true);
 		tourTable.setEnabled(false);
 		tourTable.getRowSorter().toggleSortOrder(0);
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().add(tourTable);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);

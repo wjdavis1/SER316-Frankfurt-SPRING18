@@ -16,15 +16,10 @@ import org.json.JSONTokener;
 import main.java.memoranda.TourImpl;
 import java.util.Vector;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.File;
 import java.io.FileWriter;
-
-
 
 public class TourCollection  {
 	
@@ -35,8 +30,7 @@ public class TourCollection  {
 	
 	public TourCollection() {
 		tourList = null;
-		tour = null;
-		
+		tour = null;		
 	}
 	
 	public TourCollection(String fileName){
@@ -47,7 +41,7 @@ public class TourCollection  {
 	     }
 		
 	     catch (Exception ex) {
-	         System.out.println("Exception importing from json: "+ex.getMessage());
+	         System.out.println("Exception importing from json: "+ ex.getMessage());
 	     }
 	  }
 
@@ -74,46 +68,41 @@ public class TourCollection  {
 	  
 	  public void importTourCollection() {
 		  tourList = new Vector<TourImpl>();
-			
-		     JSONObject obj = new JSONObject(new JSONTokener(in));
-		     String [] tours = JSONObject.getNames(obj);
+			try {
+			        JSONObject obj = new JSONObject(new JSONTokener(in));
+			        String [] tours = JSONObject.getNames(obj);
 		 
-		     for (int i=0; i < tours.length; i++) {
-		    	 tour = new TourImpl((JSONObject)obj.getJSONObject(tours[i]));
-		     	 tourList.addElement(tour);
-		     }
-	
-	      
+			        for (int i=0; i < tours.length; i++) {
+			            tour = new TourImpl((JSONObject)obj.getJSONObject(tours[i]));
+			            tourList.addElement(tour);
+		     	 
+			        }
+
+			}
+			catch(NullPointerException e) {
+                e.getMessage();
+            }
 	  }
 	  
 	  public void exportTourCollection()  {
 		  
 		  try {
-		  FileWriter out = new FileWriter(tourCollectionFilePath);
-		  JSONObject obj = new JSONObject();
+		          FileWriter out = new FileWriter(tourCollectionFilePath);
+		          JSONObject obj = new JSONObject();
 			 
-		  	for (int i = 0; i < tourList.size(); i++) {
-			  obj.put(tourList.elementAt(i).getTourID(), tourList.elementAt(i).toJSONObject());
-		  	}
-		  	out.write(obj.toString());
-		  	out.close();
+		          for (int i = 0; i < tourList.size(); i++) {
+		              obj.put(tourList.elementAt(i).getTourID(), tourList.elementAt(i).toJSONObject());
+		          }
+		          out.write(obj.toString());
+		          out.close();
 		  }
 		  catch (FileNotFoundException e){
 			  System.out.println(e.getMessage());
 		  }
 		  catch (IOException e) {
 			  System.out.println(e.getMessage());
-		  }
-		  
-		
-		  
+		  }  
 	  }
-	  
-	/* public static void main(String[] args) {                                 //DEBUG
-		 TourCollection thisCollection = new TourCollection("tours.json");
-		 	 
-	  }*/
 }
-
 
 

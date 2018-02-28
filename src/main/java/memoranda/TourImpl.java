@@ -17,38 +17,47 @@ import org.json.*;
 public class TourImpl implements Tour, Serializable {
 	
 	private String tourID;
-	//private CalendarDate date; 
-	//private LocalTime time; 
+	private String date; 
+	private String time; 
 	private String routeID;
 	private String driverID;
 	private String busID;
 	
 	
 	public TourImpl() {
-		tourID = "1";
+		
+		//Possible future date / time implementation .
 		//date = new CalendarDate(1, 1, 1979);
 		//time = LocalTime.NOON;
-		routeID=null;
-		driverID=null;
-		busID=null;
+	    tourID = "1";
+		date = "";
+		time = "";
+		routeID="";
+		driverID="";
+		busID="";
 	}
 	
-	public TourImpl(String tourID, String routeID, String driverID, String busID) {
+	public TourImpl(String tourID, String routeID, String driverID, String busID, String time, String date) {
 		this.tourID = tourID;
-		//this.date = date;
-		//this.time = time;
+		this.date = date;
+		this.time = time;
 		this.routeID=routeID;
 		this.driverID=driverID;
 		this.busID=busID;
 	}
+	
 	
 	public TourImpl(JSONObject obj) {
 		tourID = obj.getString("tourID");
 		routeID = obj.getString("routeID");
 		driverID = obj.getString("driverID");
 		busID = obj.getString("busID");
+		date = obj.getString("date");
+		time = obj.getString("time");
+		
 	}
 
+	//Mutators 
 	public String getTourID() {
 		return tourID;
 	}
@@ -57,21 +66,21 @@ public class TourImpl implements Tour, Serializable {
 		this.tourID = tourID;
 	}
 
-	/*public CalendarDate getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(CalendarDate date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	public LocalTime getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(LocalTime time) {
+	public void setTime(String time) {
 		this.time = time;
-	}*/
+	}
 
 	public String getRouteID() {
 		return routeID;
@@ -103,17 +112,22 @@ public class TourImpl implements Tour, Serializable {
 		obj.put("routeID", routeID);
 		obj.put("driverID", driverID);
 		obj.put("busID", busID);
+		obj.put("date", date);
+		obj.put("time", time);
 		return obj;	
 	}
 	
 	public String toString() {
-		String tourString = getTourID() + " " + getRouteID() + " " + getDriverID() + " " + getBusID();
+		String tourString = getTourID() + " " + getRouteID() + " " + getDriverID() + " " + getBusID() 
+		                + " " + getDate() + " " + getTime();
+	
 		return tourString;
 	}
 	
 	public boolean equals(TourImpl aTour) {
 		if (this.tourID.equals(aTour.tourID) && this.routeID.equals(aTour.getRouteID()) &&
-			this.driverID.equals(aTour.getDriverID()) && this.busID.equals(aTour.getBusID()))
+			this.driverID.equals(aTour.getDriverID()) && this.busID.equals(aTour.getBusID()) &&
+			this.date.equals(date) && this.time.equals(time))
 			return true;
 		return false;
 	}

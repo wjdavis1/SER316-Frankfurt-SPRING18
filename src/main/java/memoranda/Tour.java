@@ -20,6 +20,10 @@ public interface Tour extends Serializable {
 	public void setDate(CalendarDate date);
 	public LocalTime getTime();
 	public void setTime(LocalTime time);*/
+	public String getDate();
+    public void setDate(String date);
+    public String getTime();
+    public void setTime(String time);
 	public String getRouteID();
 	public void setRouteID(String routeID);
 	public String getDriverID();
