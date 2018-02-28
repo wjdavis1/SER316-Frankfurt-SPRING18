@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -53,7 +54,7 @@ public class AddBusDialog extends JDialog {
     JButton cancelB = new JButton();
     public boolean CANCELLED = true;
     
-    //BusImpl newBus = new BusImpl();
+    BusImpl newBus = new BusImpl();
 
     public AddBusDialog(Frame frame, String title) {
         super(frame, title, true);
@@ -111,7 +112,7 @@ public class AddBusDialog extends JDialog {
               
             }
         });
-        idField.setText("89293");
+        idField.setText(generateID()+"");
         idField.setEnabled(false);
         gbc = new GridBagConstraints();
         gbc.gridx = 1; gbc.gridy = 1;
@@ -200,6 +201,7 @@ public class AddBusDialog extends JDialog {
     		this.dispose();
     }
     
+    // Method to make sure all inputs all filled before submission
     private void VerifyInput() {
     		if(!nameField.getText().isEmpty() && !seatsField.getText().isEmpty()) {
     			saveB.setEnabled(true);
@@ -208,11 +210,18 @@ public class AddBusDialog extends JDialog {
     		}
     }
     
+    // Save the bus by calling method saveBus from the Bus class
     private void saveBus() {
-    		JSONObject busData = new JSONObject();
+    		int id = Integer.parseInt(idField.getText());
+    		String name = nameField.getText();
+    		int numSeats = Integer.parseInt(seatsField.getText());
+    		newBus.saveBus(id, name, numSeats);
     }
     
-    private void generateID() {
-    		
+    // Method to generate ID for bus
+    private int generateID() {
+    		Random rnd = new Random();
+    		int id = 1 + rnd.nextInt(100000);
+    		return id;
     }
 }

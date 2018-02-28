@@ -39,7 +39,7 @@ public class BusesPanel extends JPanel {
     BorderLayout borderLayout1 = new BorderLayout();
     JToolBar toolBar = new JToolBar();
     JButton newResB = new JButton();
-    ResourcesTable resourcesTable = new ResourcesTable();
+    BusTable busTable = new BusTable();
     JButton removeResB = new JButton();
     JScrollPane scrollPane = new JScrollPane();
     JButton refreshB = new JButton();
@@ -76,8 +76,8 @@ public class BusesPanel extends JPanel {
             }
         });
         newResB.setBorderPainted(false);
-        resourcesTable.setMaximumSize(new Dimension(32767, 32767));
-        resourcesTable.setRowHeight(24);
+        busTable.setMaximumSize(new Dimension(32767, 32767));
+        busTable.setRowHeight(24);
         removeResB.setBorderPainted(false);
         removeResB.setFocusable(false);
         removeResB.addActionListener(new java.awt.event.ActionListener() {
@@ -101,11 +101,11 @@ public class BusesPanel extends JPanel {
 
         PopupListener ppListener = new PopupListener();
         scrollPane.addMouseListener(ppListener);
-        resourcesTable.addMouseListener(ppListener);
+        busTable.addMouseListener(ppListener);
 
-        resourcesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        busTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                boolean enbl = (resourcesTable.getRowCount() > 0) && (resourcesTable.getSelectedRow() > -1);
+                boolean enbl = (busTable.getRowCount() > 0) && (busTable.getSelectedRow() > -1);
 
                 removeResB.setEnabled(enbl); ppRemoveRes.setEnabled(enbl);
                 ppRun.setEnabled(enbl);
@@ -168,7 +168,7 @@ public class BusesPanel extends JPanel {
         toolBar.addSeparator();
         toolBar.add(refreshB, null);
         this.add(scrollPane, BorderLayout.CENTER);
-        scrollPane.getViewport().add(resourcesTable, null);
+        scrollPane.getViewport().add(busTable, null);
         this.add(toolBar, BorderLayout.NORTH);
     resPPMenu.add(ppRun);
     resPPMenu.addSeparator();
@@ -178,9 +178,9 @@ public class BusesPanel extends JPanel {
     resPPMenu.add(ppRefresh);
 	
 		// remove resources using the DEL key
-		resourcesTable.addKeyListener(new KeyListener() {
+		busTable.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e){
-				if(resourcesTable.getSelectedRows().length>0 
+				if(busTable.getSelectedRows().length>0 
 					&& e.getKeyCode()==KeyEvent.VK_DELETE)
 					ppRemoveRes_actionPerformed(null);
 			}
@@ -201,13 +201,13 @@ public class BusesPanel extends JPanel {
     }
 
     void removeResB_actionPerformed(ActionEvent e) {
-        int[] toRemove = resourcesTable.getSelectedRows();
+        int[] toRemove = busTable.getSelectedRows();
         String msg = "";
         if (toRemove.length == 1)
             msg =
                 Local.getString("Remove the shortcut to resource")
                     + "\n'"
-                    + resourcesTable.getModel().getValueAt(toRemove[0], 0)
+                    + busTable.getModel().getValueAt(toRemove[0], 0)
                     + "'";
 
         else
@@ -225,9 +225,9 @@ public class BusesPanel extends JPanel {
             return;
         for (int i = 0; i < toRemove.length; i++) {        	
         		CurrentProject.getResourcesList().removeResource(
-                        ((Resource) resourcesTable.getModel().getValueAt(toRemove[i], ResourcesTable._RESOURCE)).getPath());
+                        ((Resource) busTable.getModel().getValueAt(toRemove[i], busTable._RESOURCE)).getPath());
         }
-        resourcesTable.tableChanged();
+        busTable.tableChanged();
     }
 
     MimeType addResourceType(String fpath) {
@@ -324,12 +324,12 @@ public class BusesPanel extends JPanel {
     class PopupListener extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
-            if ((e.getClickCount() == 2) && (resourcesTable.getSelectedRow() > -1)) {
-                String path = (String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 3);
+            if ((e.getClickCount() == 2) && (busTable.getSelectedRow() > -1)) {
+                String path = (String) busTable.getValueAt(busTable.getSelectedRow(), 3);
                 if (path.length() >0)
                     runApp(path);
                 else
-                    runBrowser((String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 0));
+                    runBrowser((String) busTable.getValueAt(busTable.getSelectedRow(), 0));
             }
             //editTaskB_actionPerformed(null);
         }
@@ -350,15 +350,15 @@ public class BusesPanel extends JPanel {
 
     }
     void refreshB_actionPerformed(ActionEvent e) {
-        resourcesTable.tableChanged();
+        busTable.tableChanged();
     }
 
   void ppRun_actionPerformed(ActionEvent e) {
-    String path = (String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 3);
+    String path = (String) busTable.getValueAt(busTable.getSelectedRow(), 3);
                 if (path.length() >0)
                     runApp(path);
                 else
-                    runBrowser((String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 0));
+                    runBrowser((String) busTable.getValueAt(busTable.getSelectedRow(), 0));
   }
   void ppRemoveRes_actionPerformed(ActionEvent e) {
     removeResB_actionPerformed(e);
@@ -368,7 +368,7 @@ public class BusesPanel extends JPanel {
   }
 
   void ppRefresh_actionPerformed(ActionEvent e) {
-     resourcesTable.tableChanged();
+     busTable.tableChanged();
   }
   
   /**

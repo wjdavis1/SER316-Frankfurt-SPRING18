@@ -23,7 +23,7 @@ public interface Bus {
 	void addToSchedule(Date scheduleDate, Time scheduleTime);				// Method to add a new schedule to bus schedule
 	void removeFromSchedule(Date scheduleDate, Time scheduleTime);			// Method to remove schedule from bus schedule
 	Vector<Date> getSchedule();								// Method to return full schedule of bus
-	void saveBus();											// Method to save Bus in storage
+	void saveBus(int id, String name, int numSeats);		    // Method to save Bus in storage
 	JSONObject readBusData ();								// Method to read information of a bus
 	
 }

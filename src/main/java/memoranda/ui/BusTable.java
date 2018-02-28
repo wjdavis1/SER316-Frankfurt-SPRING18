@@ -120,10 +120,10 @@ public class BusTable extends JTable {
     class ResourcesTableModel extends AbstractTableModel {
 
         String[] columnNames = {
+                Local.getString("ID"),
                 Local.getString("Name"),
-                Local.getString("Type"),
-                Local.getString("Date modified"),
-                Local.getString("Path")};
+                Local.getString("Number of Seats"),
+                Local.getString("Action")};
 
         public String getColumnName(int i) {
             return columnNames[i];
