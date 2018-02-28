@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
-import main.java.memoranda.ui.DriverTablePanel;
 
 /**
  * 
@@ -33,6 +32,7 @@ public class DriversPanel extends JPanel {
 	JLabel firstName, lastName, driverID, age,driverImage,phoneNumber, first, last, id, driverAge, driverPhoneNumber;
 	AddDriverPanel newDriver;
 	DriverTablePanel newTable;
+	RemoveDriver deleteDriver;
 	
 	// The work panel is the parent panel for Driver and many other
 	// panels
@@ -98,6 +98,12 @@ public class DriversPanel extends JPanel {
 			}
 		});
 		
+		removeDriver.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        remove();
+		    }
+		});
+		
 		driversToolBar.setFloatable(false);
 		driversToolBar.addSeparator(new Dimension(8,24));
 		driversToolBar.addSeparator(new Dimension(8,24));
@@ -142,6 +148,10 @@ public class DriversPanel extends JPanel {
 	 */
 	private void newDriverPanel() {
 		newDriver = new AddDriverPanel();
+	}
+	
+	private void remove() {
+	    deleteDriver = new RemoveDriver();
 	}
 	
 	private void refreshTable() {

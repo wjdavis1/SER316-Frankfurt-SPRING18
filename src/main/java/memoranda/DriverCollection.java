@@ -82,10 +82,9 @@ public class DriverCollection implements  Serializable{
 	 */
 	public boolean removeDriver(String driverID) {
 	    boolean canRemove = false;
-	    HashMap<String,Driver> drivers = getDrivers();
 	    
-	    if(drivers.containsKey(driverID)) {
-	        drivers.remove(driverID, drivers.get(driverID));
+	    if(driverCollection.containsKey(driverID)) {
+	        driverCollection.remove(driverID);
 	        canRemove = true;
 	    }
 	    return canRemove;
