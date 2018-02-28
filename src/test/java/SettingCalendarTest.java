@@ -50,8 +50,10 @@ class SettingCalendarTest {
 		CalendarDate testToday = CalendarDate.today();
 
 		Calendar today = Calendar.getInstance();
+		long testTodayLong = testToday.getDate().getTime();
+		long todayLong = today.getTimeInMillis();
 		
-		assertEquals(testToday.getDate().getTime(), today.getTimeInMillis());
+		assertEquals(testTodayLong, todayLong);
 		
 	}
 	
