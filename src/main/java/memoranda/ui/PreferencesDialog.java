@@ -281,7 +281,7 @@ public class PreferencesDialog extends JDialog {
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(closeHideRB, gbc);
 		jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
-		jLabel3.setText(Local.getString("Fuck off:"));
+		jLabel3.setText(Local.getString("Look and feel:"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 4;
