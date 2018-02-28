@@ -683,16 +683,19 @@ public class AppFrame extends JFrame {
          dlg.setModal(true);
          dlg.setVisible(true);
     }
-
+    
+    // Found location of missing close dialog
+    // Dialog will now ask if you want to exit after
+    // pressing X button (if setting is enabled)
+    // It will also minimize instead of exit if
+    // ON_CLOSE is set to minimize.
+    // James Ortner (jortner1) 14-February-2018
     protected void processWindowEvent(WindowEvent e) {
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
             if (Configuration.get("ON_CLOSE").equals("exit"))
                 doExit();
             else
-	    {
-	    	exitNotify();
-		App.closeWindow();
-	    }
+            	doMinimize();
         }
         else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
             super.processWindowEvent(new WindowEvent(this,
