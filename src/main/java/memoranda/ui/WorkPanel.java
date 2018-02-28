@@ -222,7 +222,7 @@ public class WorkPanel extends JPanel {
 		toursB.setIcon(
 			new ImageIcon(
 				main.java.memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/x.png")));
+					"/ui/icons/tour_tab.png")));
 		toursB.setOpaque(false);
 		toursB.setMargin(new Insets(0, 0, 0, 0));
 		toursB.setSelected(true);
