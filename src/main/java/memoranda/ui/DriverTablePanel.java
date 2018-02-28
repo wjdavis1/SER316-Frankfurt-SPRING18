@@ -69,6 +69,11 @@ public class DriverTablePanel extends JPanel {
             // TODO Auto-generated method stub
             return columnNames.length;
         }
+        
+        @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
