@@ -50,6 +50,14 @@ public class DriverCollection implements  Serializable{
 		this.fileName = fileName;
 		readFromFile();
 	}
+	
+	public boolean doesDriverExist(String driverID) {
+	    boolean doesExist = false;
+	        if(driverCollection.containsKey(driverID)) {
+	            doesExist = true;
+	        }
+	    return doesExist;
+	}
 	/**
 	 * Method: addDriver
 	 * 
@@ -78,7 +86,9 @@ public class DriverCollection implements  Serializable{
 	 * Input: DriverID
 	 * Return: Boolean
 	 * 
-	 * Description: Looks for 
+	 * Description: Looks for the Driver in the collection by driver id, once found
+	 * the driver is then removed from the system. if the driver is not found, then error message
+	 * is displayed with no edits done.
 	 */
 	public boolean removeDriver(String driverID) {
 	    boolean canRemove = false;
@@ -88,6 +98,36 @@ public class DriverCollection implements  Serializable{
 	        canRemove = true;
 	    }
 	    return canRemove;
+	}
+	
+	/**
+	 * Method: edit Driver
+	 * Input: Driver ID, Edit - Information to be edited, 
+	 * Option - JOptionPane integer value.
+	 * Return boolean - determines if the edit can be done and sent to GUI
+	 * 
+	 * Description: Looks through the driver collection to find the driver
+	 * based off of ID, then if the driver is in the system, the edit
+	 * of information based of the option integer can be made. The option
+	 * integer is selected from the JOptionPane in the EditDriverPanel
+	 */
+	public boolean editDriver(String driverID, String edit,int option) {
+	    boolean canEdit = false;
+	    
+	    if(driverCollection.containsKey(driverID)) {
+	        if(option == 0) {
+	            driverCollection.get(driverID).setFirstName(edit);
+	        } else if( option == 1) {
+	            driverCollection.get(driverID).setLastName(edit);
+	        } else if(option == 2) {
+	            driverCollection.get(driverID).setAge(Integer.parseInt(edit));
+	        } else if(option == 3) {
+	            driverCollection.get(driverID).setPhoneNumber(edit);
+	        }
+	        canEdit = true;
+	    }
+	    
+	    return canEdit;
 	}
 	/**
 	 * Method saveToFile

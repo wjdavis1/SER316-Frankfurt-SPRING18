@@ -13,6 +13,10 @@ import org.json.JSONObject;
 
 public interface Driver {
 
+    void setFirstName(String firstName);
+    void setLastName(String lastName);
+    void setPhoneNumber(String phoneNumber);
+    void setAge(int age);
 	String getFullName();
 	String getFirstName();
 	String getLastName();

@@ -33,6 +33,7 @@ public class DriversPanel extends JPanel {
 	AddDriverPanel newDriver;
 	DriverTablePanel newTable;
 	RemoveDriver deleteDriver;
+	EditDriverPanel editDriverInformation;
 	
 	// The work panel is the parent panel for Driver and many other
 	// panels
@@ -104,6 +105,12 @@ public class DriversPanel extends JPanel {
 		    }
 		});
 		
+		editDriver.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent evt) {
+		        edit();
+		    }
+		});
+		
 		driversToolBar.setFloatable(false);
 		driversToolBar.addSeparator(new Dimension(8,24));
 		driversToolBar.addSeparator(new Dimension(8,24));
@@ -150,8 +157,27 @@ public class DriversPanel extends JPanel {
 		newDriver = new AddDriverPanel();
 	}
 	
+	/**
+	 * Method: remove
+	 * Input: none
+	 * Return: void/none
+	 * 
+	 * Description: Creates a new RemoveDriver JFrame that accepts user input in the form
+	 * of the DriverID and removes from there.
+	 */
 	private void remove() {
 	    deleteDriver = new RemoveDriver();
+	}
+	/**
+	 * Method: edit
+	 * Input: None
+	 * Return: none
+	 * 
+	 * Description: Crates a new EditDriverPanel that allows the user to edit information
+	 * on a driver by driverID.
+	 */
+	private void edit() {
+	    editDriverInformation = new EditDriverPanel();
 	}
 	
 	private void refreshTable() {
