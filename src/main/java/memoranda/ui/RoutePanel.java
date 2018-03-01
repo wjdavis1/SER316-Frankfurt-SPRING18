@@ -26,11 +26,14 @@ public class RoutePanel extends JPanel {
 	JPanel routeList = new JPanel();
 	JPanel emptyPanel = new JPanel();
 	JToolBar routeToolBar = new JToolBar();
-	JButton addRoute,removeRoute, findRoute,editRoute;
+	JButton addRoute,removeRoute, findRoute,editRoute,refreshList;
 	JSplitPane routeInfoPane,routePane;
-	ImageIcon add, remove, find, edit;
+	ImageIcon add, remove, find, edit, refresh;
 	JLabel destination, routeId, startPoint, destinationText, routeIdText, startPointText;
 	AddRoutePanel newRoute;
+	RouteTablePanel newTable;
+	RemoveRoute deleteRoute;
+	EditRoutePanel editRouteInformation;
 	
 	// The work panel is the parent panel for Route and many other
 	// panels
@@ -62,10 +65,13 @@ public class RoutePanel extends JPanel {
 		remove = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_remove.png"));
 		find = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/help.png"));
 		edit = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/editproject.png"));
+		refresh = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png"));
+		
 		addRoute = new JButton("Add Route", add);
 		removeRoute = new JButton("Remove Route", remove);
 		findRoute = new JButton("Find Route", find);
 		editRoute = new JButton("Edit Route Information", edit);
+		refreshList = new JButton("Refresh Route List", refresh);
 		
 		destination = new JLabel("Destination: ");
 		routeId = new JLabel("Route ID: ");
@@ -82,6 +88,24 @@ public class RoutePanel extends JPanel {
 				newRoutePanel();
 			}
 		});
+		
+		refreshList.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                refreshTable();
+            }
+        });
+        
+        removeRoute.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                remove();
+            }
+        });
+        
+        editRoute.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                edit();
+            }
+        });
 		
 		routeToolBar.setFloatable(false);
 		routeToolBar.addSeparator(new Dimension(8,24));
@@ -118,5 +142,34 @@ public class RoutePanel extends JPanel {
 	private void newRoutePanel() {
 		newRoute = new AddRoutePanel();
 	}
+	
+	/**
+     * Method: remove
+     * Input: none
+     * Return: void/none
+     * 
+     * Description: Creates a new RemoveRoute JFrame that accepts user input in the form
+     * of the RouteId and removes from there.
+     */
+    private void remove() {
+        deleteRoute = new RemoveRoute();
+    }
+    /**
+     * Method: edit
+     * Input: None
+     * Return: none
+     * 
+     * Description: Crates a new EditRoutePanel that allows the user to edit information
+     * on a route by routeId.
+     */
+    private void edit() {
+        editRouteInformation = new EditRoutePanel();
+    }
+    
+    private void refreshTable() {
+        newTable.refreshTable();
+        newTable.revalidate();
+        newTable.repaint();
+    }
 
 }
