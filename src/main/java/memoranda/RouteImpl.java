@@ -62,4 +62,64 @@ public class RouteImpl implements Route {
 	public String getStartPoint() {
 		return startPoint;
 	}
+	
+	/**
+     * Method: setDestination()
+     * Input: destination
+     * Return: none
+     * Description: Sets the Destination
+     */
+    @Override
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+    
+    /**
+     * Method: setRouteId()
+     * Input: routeId
+     * Return: none
+     * Description: Sets the Route ID
+     */
+    @Override
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
+    }
+    
+    /**
+     * Method: setStartPoint()
+     * Input: startPoint
+     * Return: none
+     * Description: Sets the route's start point
+     */
+    @Override
+    public void setStartPoint(String startPoint) {
+        this.startPoint = startPoint;
+    }
+    
+    /**
+     * Method: toJsonObject
+     * Input: None
+     * Return: JSONObject
+     * Description: Returns a JSONObject of the Route class.
+     */
+    public JSONObject toJsonObject() {
+        JSONObject obj = new JSONObject();
+        obj.put("destination", destination);
+        obj.put("routeId", routeId);
+        obj.put("startPoint", startPoint);
+        return obj;
+    }
+    
+    /**
+     * Method: toJSONString
+     * Input: None
+     * Return: None
+     * 
+     * Description: Converts the JSONObject of this class into a string
+     */
+    public String toJSONString() {
+        String jsonString;
+        jsonString = toJsonObject().toString();
+        return jsonString;
+    }
 }
