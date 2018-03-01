@@ -35,7 +35,7 @@ public class RouteCollection implements Serializable{
 	private Map<String,Route> routeCollection;
 	private Set<String> routeIds;
 	
-	private String routeDataPath = "/data/routes/";
+	private String routeDataPath = "src/main/resources/data/routes/";
 	private File routesFile;
 	private FileInputStream in;
 	private String fileName;
@@ -45,19 +45,7 @@ public class RouteCollection implements Serializable{
 		System.out.println("[DEBUG]" + routeDataPath);
 		routeCollection = new HashMap<>();
 		this.fileName = fileName;
-		if(routesFile.exists() && !routesFile.isDirectory()) {
-			System.out.println("File Exists!");
-		}
-		else {
-			routesFile = new File(this.routeDataPath + fileName);
-			try {
-				if(routesFile.createNewFile()) {
-					System.out.println("Created: " + fileName + " Found in: " + routeDataPath);
-				}
-			}catch(IOException ioe) {
-				System.out.println(ioe.getMessage());
-			}
-		}
+		readFromFile();
 	}
 	
 	public boolean doesRouteExist(String routeId) {
@@ -130,10 +118,7 @@ public class RouteCollection implements Serializable{
             if (option == 0) {
                 routeCollection.get(routeId).setDestination(edit);
             } 
-            else if ( option == 1) {
-                routeCollection.get(routeId).setRouteId(edit);
-            } 
-            else if (option == 2) {
+            else if (option == 1) {
                 routeCollection.get(routeId).setStartPoint(edit);
             }
             
@@ -169,7 +154,7 @@ public class RouteCollection implements Serializable{
      * Description: Reads in the JSON Objects from the file and converts them into the RouteCollection
      */
     public void readFromFile() {
-        routesFile = new File(main.java.memoranda.ui.AppFrame.class.getResource(routeDataPath).getFile());
+        routesFile = new File(routeDataPath);
         if(routesFile.exists() && !routesFile.isDirectory()) {
             System.out.println("[DEBUG] File Exists!");
             try {
@@ -219,8 +204,8 @@ public class RouteCollection implements Serializable{
      */
     public static HashMap<String,Route> getRoutes(){
         Map<String, Route> routes = new HashMap<String, Route>();
-        String filePath = "/data/routes/routes.json";
-        File file = new File(main.java.memoranda.ui.AppFrame.class.getResource(filePath).getFile());
+        String filePath = "src/main/resources/data/routes/routes.json";
+        File file = new File(filePath);
         
         try {
             FileInputStream in = new FileInputStream(file);
