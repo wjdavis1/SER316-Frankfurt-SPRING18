@@ -12,17 +12,16 @@ import org.json.JSONObject;
  */
 
 public interface Driver {
-
+	String getFullName();
+	String getDriverId();
+	int getAge();
+	String getPhoneNumber();
     void setFirstName(String firstName);
     void setLastName(String lastName);
     void setPhoneNumber(String phoneNumber);
     void setAge(int age);
-	String getFullName();
 	String getFirstName();
 	String getLastName();
-	String getDriverId();
-	int getAge();
-	String getPhoneNumber();
 	JSONObject toJsonObject();
 	String toJSONString();
 }
