@@ -34,7 +34,7 @@ public class RouteImpl implements Route, Serializable {
         startPoint = (String)obj.get("startPoint"); 
     }
 	
-	public RouteImpl(String destination, String routeId, String startPoint, String endPoint) {
+	public RouteImpl(String destination, String routeId, String startPoint) {
 		this.destination = destination;
 		this.routeId = routeId;
 		this.startPoint = startPoint;
