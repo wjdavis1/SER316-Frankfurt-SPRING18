@@ -36,6 +36,8 @@ public class WorkPanel extends JPanel {
 	public ResourcesPanel filesPanel = new ResourcesPanel();
 
 	public DriversPanel driverPanel = new DriversPanel(this);
+	
+	public RoutePanel routePanel = new RoutePanel(this);
 
 	public TourPanel tourPanel = new TourPanel();
 	
@@ -46,7 +48,7 @@ public class WorkPanel extends JPanel {
 	public JButton filesB = new JButton();
 
 	public JButton driversB = new JButton();
-
+	public JButton routesB = new JButton();
 	public JButton toursB = new JButton();
 	
 
@@ -232,6 +234,28 @@ public class WorkPanel extends JPanel {
 		driversB.setOpaque(false);
 		driversB.setMaximumSize(new Dimension(60, 80));
 		driversB.setBackground(Color.white);
+		
+		routesB.setSelected(true);
+		routesB.setMargin(new Insets(0,0,0,0));
+		routesB.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/notes.png")));
+		routesB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		routesB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                routesB_actionPerformed(e);
+            }
+        });
+		routesB.setFont(new java.awt.Font("Dialog", 1, 10));
+		routesB.setVerticalAlignment(SwingConstants.TOP);
+		routesB.setText(Local.getString("Routes"));
+		routesB.setHorizontalTextPosition(SwingConstants.CENTER);
+		routesB.setFocusPainted(false);
+		routesB.setBorderPainted(false);
+		routesB.setContentAreaFilled(false);
+		routesB.setPreferredSize(new Dimension(50, 50));
+		routesB.setMinimumSize(new Dimension(30, 30));
+		routesB.setOpaque(false);
+		routesB.setMaximumSize(new Dimension(60, 80));
+		routesB.setBackground(Color.white);
 
 		toursB.setBackground(Color.white);
 		toursB.setMaximumSize(new Dimension(60, 80));
@@ -268,6 +292,8 @@ public class WorkPanel extends JPanel {
 		panel.add(filesPanel, "FILES");
 
 		panel.add(driverPanel, "DRIVERS");
+		
+		panel.add(routePanel, "ROUTES");
 
 		panel.add(tourPanel, "TOURS");
 
@@ -278,7 +304,7 @@ public class WorkPanel extends JPanel {
 		toolBar.add(filesB, null);
 
 		toolBar.add(driversB, null);
-
+		toolBar.add(routesB, null);
 		toolBar.add(toursB, null);
 		
 
@@ -308,6 +334,8 @@ public class WorkPanel extends JPanel {
 			else if(pan.equals("DRIVERS")) {
 				driversB_actionPerformed(null);
 			}
+			else if (pan.equals("ROUTES"))
+                routesB_actionPerformed(null);
 
 			else if (pan.equals("TOURS"))
 				toursB_actionPerformed(null);
@@ -357,6 +385,14 @@ public class WorkPanel extends JPanel {
 		setCurrentButton(driversB);
 		Context.put("CURRENT_PANEL", "DRIVERS");
 	}
+	
+	public void routesB_actionPerformed(ActionEvent e) {
+        System.out.println("[DEBUG] Routes has been pressed");
+        cardLayout1.show(panel, "ROUTES");
+        dailyItemsPanel.selectPanel("ROUTES");
+        setCurrentButton(routesB);
+        Context.put("CURRENT_PANEL", "ROUTES");
+    }
 
 	public void toursB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "TOURS");
