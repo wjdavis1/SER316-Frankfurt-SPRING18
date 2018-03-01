@@ -93,6 +93,26 @@ public class RouteCollection implements Serializable{
 	}
 	
 	/**
+     * Method: removeRoute
+     * 
+     * Input: RouteId
+     * Return: Boolean
+     * 
+     * Description: Looks for the Route in the collection by route id, once found
+     * the route is then removed from the system. if the route is not found, then error message
+     * is displayed with no edits done.
+     */
+    public boolean removeRoute(String routeId) {
+        boolean canRemove = false;
+        
+        if(routeCollection.containsKey(routeId)) {
+            routeCollection.remove(routeId);
+            canRemove = true;
+        }
+        return canRemove;
+    }
+	
+	/**
      * Method: edit Route
      * Input: Route ID, Edit - Information to be edited, 
      * Option - JOptionPane integer value.
