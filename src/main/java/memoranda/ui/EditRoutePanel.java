@@ -78,7 +78,7 @@ public class EditRoutePanel extends JFrame {
     private void editRoute() {
         routeCollection = new RouteCollection("routes.json");
         String response;
-        String[] editOptions = {"destination, routeId, startPoint"};
+        String[] editOptions = {"destination, startPoint"};
 
         
         if(routeCollection.doesRouteExist(routeIDEntry.getText())) {
@@ -88,13 +88,8 @@ public class EditRoutePanel extends JFrame {
                 response = JOptionPane.showInputDialog(this, "Enter new Destination: ");
                 routeCollection.editRoute(routeIDEntry.getText(), response, option);
                 JOptionPane.showMessageDialog(this, "Edit Successfully Completed");
-            } 
+            }  
             else if(option == 1) {
-                response = JOptionPane.showInputDialog(this, "Enter new Route ID: ");
-                routeCollection.editRoute(routeIDEntry.getText(), response, option);
-                JOptionPane.showMessageDialog(this, "Edit Successfully Completed");
-            } 
-            else if(option == 2) {
                 response = JOptionPane.showInputDialog(this, "Enter new Start Point: ");
                 routeCollection.editRoute(routeIDEntry.getText(), response, option);
                 JOptionPane.showMessageDialog(this, "Edit Successfully Completed");
