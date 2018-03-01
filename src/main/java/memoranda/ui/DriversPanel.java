@@ -181,9 +181,10 @@ public class DriversPanel extends JPanel {
 	}
 	
 	private void refreshTable() {
-	    newTable.refreshTable();
-	    newTable.revalidate();
-	    newTable.repaint();
+	    DriverTablePanel freshTable = new DriverTablePanel();
+	    driverPane.setRightComponent(freshTable);
+	    this.revalidate();
+	    this.repaint();
 	}
 
 }
