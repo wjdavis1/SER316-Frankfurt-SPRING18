@@ -20,8 +20,10 @@ class SettingCalendarTest {
 	public void SettingTodaysDateTest() {
 		
 		Calendar actualDate = Calendar.getInstance();
+		long actualDateTestSec = actualDate.getTimeInMillis();
+		long testCalendarTestSec = testCalendar.getDate().getTime();
 		
-		assertEquals(actualDate.getTimeInMillis(), testCalendar.getDate().getTime());
+		assertEquals(testCalendarTestSec, actualDateTestSec);
 	}
 	
 	@Test

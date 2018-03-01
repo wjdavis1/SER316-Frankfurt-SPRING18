@@ -205,8 +205,8 @@ public class DriverCollection implements  Serializable{
 	 */
 	public static HashMap<String,Driver> getDrivers(){
 		Map<String, Driver> drivers = new HashMap<String, Driver>();
-		String filePath = "/data/drivers/drivers.json";
-		File file = new File(main.java.memoranda.ui.AppFrame.class.getResource(filePath).getFile());
+		String filePath = "src/main/resources/data/drivers/drivers.json";
+		File file = new File(filePath);
 		
 		try {
 			FileInputStream in = new FileInputStream(file);
