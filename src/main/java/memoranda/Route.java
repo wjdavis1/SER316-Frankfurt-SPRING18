@@ -1,5 +1,7 @@
 package main.java.memoranda;
 
+import org.json.JSONObject;
+
 /**
  * FileName: Route.java
  * Description: Interface for creating route objects, any classes that are calling this interface need 
@@ -16,4 +18,6 @@ public interface Route {
 	void setDestination(String Destination);
 	void setRouteId(String routeId);
 	void setStartPoint(String startPoint);
+	JSONObject toJsonObject();
+	String toJSONString();
 }
