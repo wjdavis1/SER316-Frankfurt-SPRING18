@@ -34,10 +34,22 @@ public class WorkPanel extends JPanel {
 	public JButton notesB = new JButton();
 	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
 	public ResourcesPanel filesPanel = new ResourcesPanel();
+
+	public DriversPanel driverPanel = new DriversPanel(this);
+
+	public TourPanel tourPanel = new TourPanel();
+	
+
 	public JButton agendaB = new JButton();
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
+
+	public JButton driversB = new JButton();
+
+	public JButton toursB = new JButton();
+	
+
 	JButton currentB = null;
 	Border border1;
 
@@ -196,15 +208,80 @@ public class WorkPanel extends JPanel {
 		filesB.setOpaque(false);
 		filesB.setMaximumSize(new Dimension(60, 80));
 		filesB.setBackground(Color.white);
+		
+
+		//Testing Adding Driver GUI Button
+		driversB.setSelected(true);
+		driversB.setMargin(new Insets(0,0,0,0));
+		driversB.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/star8.png")));
+		driversB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		driversB.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				driversB_actionPerformed(e);
+			}
+		});
+		driversB.setFont(new java.awt.Font("Dialog", 1, 10));
+		driversB.setVerticalAlignment(SwingConstants.TOP);
+		driversB.setText(Local.getString("Drivers"));
+		driversB.setHorizontalTextPosition(SwingConstants.CENTER);
+		driversB.setFocusPainted(false);
+		driversB.setBorderPainted(false);
+		driversB.setContentAreaFilled(false);
+		driversB.setPreferredSize(new Dimension(50, 50));
+		driversB.setMinimumSize(new Dimension(30, 30));
+		driversB.setOpaque(false);
+		driversB.setMaximumSize(new Dimension(60, 80));
+		driversB.setBackground(Color.white);
+
+		toursB.setBackground(Color.white);
+		toursB.setMaximumSize(new Dimension(60, 80));
+		toursB.setMinimumSize(new Dimension(30, 30));
+
+		toursB.setFont(new java.awt.Font("Dialog", 1, 10));
+		toursB.setPreferredSize(new Dimension(50, 50));
+		toursB.setBorderPainted(false);
+		toursB.setContentAreaFilled(false);
+		toursB.setFocusPainted(false);
+		toursB.setHorizontalTextPosition(SwingConstants.CENTER);
+		toursB.setText(Local.getString("Tours"));
+		toursB.setVerticalAlignment(SwingConstants.TOP);
+		toursB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		toursB.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				toursB_actionPerformed(e);
+			}
+		});
+		toursB.setIcon(
+			new ImageIcon(
+				main.java.memoranda.ui.AppFrame.class.getResource(
+					"/ui/icons/tour_tab.png")));
+		toursB.setOpaque(false);
+		toursB.setMargin(new Insets(0, 0, 0, 0));
+		toursB.setSelected(true);
+
+		
+
+		
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 		panel.add(filesPanel, "FILES");
+
+		panel.add(driverPanel, "DRIVERS");
+
+		panel.add(tourPanel, "TOURS");
+
 		toolBar.add(agendaB, null);
 		toolBar.add(eventsB, null);
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
+
+		toolBar.add(driversB, null);
+
+		toolBar.add(toursB, null);
+		
+
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
@@ -227,6 +304,14 @@ public class WorkPanel extends JPanel {
 				eventsB_actionPerformed(null);
 			else if (pan.equals("FILES"))
 				filesB_actionPerformed(null);
+
+			else if(pan.equals("DRIVERS")) {
+				driversB_actionPerformed(null);
+			}
+
+			else if (pan.equals("TOURS"))
+				toursB_actionPerformed(null);
+
 		}
 	}
 
@@ -263,7 +348,23 @@ public class WorkPanel extends JPanel {
 		setCurrentButton(filesB);
 		Context.put("CURRENT_PANEL", "FILES");
 	}
+	
+	//Driver Action Event When Button is pressed
+	public void driversB_actionPerformed(ActionEvent e) {
+		System.out.println("[DEBUG] Drivers has been pressed");
+		cardLayout1.show(panel, "DRIVERS");
+		dailyItemsPanel.selectPanel("DRIVERS");
+		setCurrentButton(driversB);
+		Context.put("CURRENT_PANEL", "DRIVERS");
+	}
 
+	public void toursB_actionPerformed(ActionEvent e) {
+		cardLayout1.show(panel, "TOURS");
+		dailyItemsPanel.selectPanel("TOURS");
+		setCurrentButton(toursB);
+		Context.put("CURRENT_PANEL", "TOURS");
+	}
+	
 	void setCurrentButton(JButton cb) {
 		currentB.setBackground(Color.white);
 		currentB.setOpaque(false);
