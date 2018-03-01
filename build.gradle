@@ -1,4 +1,8 @@
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
 apply plugin: 'application'
 
 ///////////////////////////////////////////////////////////////////////////
@@ -36,6 +40,10 @@ buildscript {
 apply plugin: 'org.junit.platform.gradle.plugin'
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
 dependencies {
     // in case JUnit 4 is also needed/wanted
     compile("junit:junit:4.12")
@@ -50,12 +58,21 @@ dependencies {
     compile 'com.io7m.xom:xom:1.2.+'
   	compile 'net.sourceforge.nekohtml:nekohtml:1.9.+'
   	compile 'org.json:json:20180130'
+<<<<<<< HEAD
 }
 
 junitPlatform {
     details 'tree'
 }
 
+=======
+}
+
+junitPlatform {
+    details 'tree'
+}
+
+>>>>>>> dev
 
 apply plugin: 'jacoco'
 
