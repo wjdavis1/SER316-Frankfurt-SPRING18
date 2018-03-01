@@ -7,6 +7,7 @@
  */
 package main.java.memoranda;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,20 +17,25 @@ import java.sql.Time;
 import java.util.Vector;
 import org.json.*;
 
+import main.java.memoranda.ui.App;
+
 public class BusImpl implements Bus {
     
     private int id;
     private String name;
     private int numberOfSeats;
     public static Vector<Date> schedule = new Vector<Date>();
-    private final String dataStorageFile = "../../resources/data/buses/buses.json";
+    private final String dataStorageFile = "/data/buses/buses.json";
     FileInputStream dataIn = null;
     FileOutputStream dataOut = null;
     JSONObject dataObj = null;
+    private File busesFile;
     
     public BusImpl() {
         id = 0;
         numberOfSeats = 0;
+        dataObj = new JSONObject();
+        readFile();
     }
     
     public void setID(int id) {
@@ -88,8 +94,8 @@ public class BusImpl implements Bus {
         bus.put("name", name);
         bus.put("id", id);
         bus.put("seats", numSeats);
-        
-        dataObj.put("id", bus);
+        String newBusId = id+"";
+        dataObj.put(newBusId, bus);
         writeToFile();
     }
     
@@ -106,20 +112,22 @@ public class BusImpl implements Bus {
     
     // Method to read data file
     private void readFile() {
-        try {
-            dataIn = new FileInputStream(dataStorageFile);
-            dataObj = new JSONObject(new JSONTokener(dataIn));
-            System.out.println(dataObj.toString(2));
-            //populatePoints();
-        }catch(Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+    		busesFile = new File(App.class.getResource(dataStorageFile).getFile());
+    		try {
+				dataIn = new FileInputStream(busesFile);
+				dataObj = new JSONObject(new JSONTokener(dataIn));
+				
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     }
     
     // Method to write data to file
     private void writeToFile() {
+    		busesFile = new File(App.class.getResource(dataStorageFile).getFile());
         try {
-            dataOut = new FileOutputStream(dataStorageFile);
+            dataOut = new FileOutputStream(busesFile);
             dataOut.write(dataObj.toString().getBytes());
             System.out.println(dataObj.toString(2));
             //populatePoints();

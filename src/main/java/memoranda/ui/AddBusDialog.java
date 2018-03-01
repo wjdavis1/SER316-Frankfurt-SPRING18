@@ -216,6 +216,11 @@ public class AddBusDialog extends JDialog {
     		String name = nameField.getText();
     		int numSeats = Integer.parseInt(seatsField.getText());
     		newBus.saveBus(id, name, numSeats);
+    		generateID();
+    		idField.setText(generateID()+"");
+    		seatsField.setText("");
+    		nameField.setText("");
+    		
     }
     
     // Method to generate ID for bus
