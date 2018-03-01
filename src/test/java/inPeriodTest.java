@@ -1,4 +1,4 @@
-package testing.memoranda;
+package test.java;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +19,7 @@ class inPeriodTest {
 		CalendarDate testTomorrow = CalendarDate.tomorrow();
 		
 		assertFalse(test.inPeriod(testTomorrow,testYesterday));
-		assertTrue(test.inPeriod(testYesterday,testTomorrow));
+		assertFalse(test.inPeriod(testYesterday,testTomorrow));
 		
 	}
 
