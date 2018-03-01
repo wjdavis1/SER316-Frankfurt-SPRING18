@@ -29,7 +29,7 @@ public class TourImpl implements Tour, Serializable {
 		//Possible future date / time implementation .
 		//date = new CalendarDate(1, 1, 1979);
 		//time = LocalTime.NOON;
-	    tourID = "1";
+	    tourID = "";
 		date = "";
 		time = "";
 		routeID="";
@@ -37,6 +37,15 @@ public class TourImpl implements Tour, Serializable {
 		busID="";
 	}
 	
+	/**
+	 * Constructor creates a TourImpl object with Strings
+	 * @param tourID A String representation of the TourID
+	 * @param routeID  A String representation of the routeID
+	 * @param driverID A String representation of the driverID
+	 * @param busID A String representation of the busID
+	 * @param time A String representation of the tour's start time
+	 * @param date A String representation of the tour's date
+	 */
 	public TourImpl(String tourID, String routeID, String driverID, String busID, String time, String date) {
 		this.tourID = tourID;
 		this.date = date;
@@ -46,7 +55,10 @@ public class TourImpl implements Tour, Serializable {
 		this.busID=busID;
 	}
 	
-	
+	/**
+	 * Constructor converts a JSONObj to a TourImpl object
+	 * @param obj An object of type JSONObject
+	 */
 	public TourImpl(JSONObject obj) {
 		tourID = obj.getString("tourID");
 		routeID = obj.getString("routeID");
@@ -57,7 +69,7 @@ public class TourImpl implements Tour, Serializable {
 		
 	}
 
-	//Mutators 
+	//Accessors/Mutators 
 	public String getTourID() {
 		return tourID;
 	}
@@ -106,6 +118,9 @@ public class TourImpl implements Tour, Serializable {
 		this.busID = busID;
 	}
 	
+	/**
+	 * Converts a TourImpl Object to a JSONObject type in preparation for serialization and storage
+	 */
 	public JSONObject toJSONObject() {
 		JSONObject obj = new JSONObject();
 		obj.put("tourID", tourID);
@@ -117,17 +132,25 @@ public class TourImpl implements Tour, Serializable {
 		return obj;	
 	}
 	
+	/**
+	 * Returns the TourImpl information as a string
+	 */
 	public String toString() {
-		String tourString = getTourID() + " " + getRouteID() + " " + getDriverID() + " " + getBusID() 
+		String tourString = "Information for Tour #" + getTourID() + " " + getRouteID() + " " + getDriverID() + " " + getBusID() 
 		                + " " + getDate() + " " + getTime();
 	
 		return tourString;
 	}
 	
+	/**
+	 * Compares two TourImpl objects for equality, returns true if all fields are equal.
+	 * @param aTour
+	 * @return
+	 */
 	public boolean equals(TourImpl aTour) {
 		if (this.tourID.equals(aTour.tourID) && this.routeID.equals(aTour.getRouteID()) &&
 			this.driverID.equals(aTour.getDriverID()) && this.busID.equals(aTour.getBusID()) &&
-			this.date.equals(date) && this.time.equals(time))
+			this.date.equals(aTour.date) && this.time.equals(aTour.time))
 			return true;
 		return false;
 	}
