@@ -8,11 +8,15 @@ package main.java.memoranda;
  * Date: Feb 21st, 2018
  */
 
+import java.io.Serializable;
+
+import org.json.JSONObject;
+
 /**
  * Class: RouteImpl
  * Description: SEE FILE DESCRIPTION ABOVE
  */
-public class RouteImpl implements Route {
+public class RouteImpl implements Route, Serializable {
 	
 	private String destination;
 	private String routeId;
@@ -23,6 +27,12 @@ public class RouteImpl implements Route {
 		routeId = null;
 		startPoint = null;
 	}
+	
+	public RouteImpl(JSONObject obj) {
+        destination = (String)obj.get("destination");
+        routeId = (String)obj.get("routeId");
+        startPoint = (String)obj.get("startPoint"); 
+    }
 	
 	public RouteImpl(String destination, String routeId, String startPoint, String endPoint) {
 		this.destination = destination;
