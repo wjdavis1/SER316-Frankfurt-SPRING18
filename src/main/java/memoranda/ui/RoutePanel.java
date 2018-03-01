@@ -12,6 +12,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import main.java.memoranda.RouteCollection;
+
 /**
  * 
  * Class: RoutePanel
@@ -19,21 +21,28 @@ import javax.swing.*;
  *
  */
 public class RoutePanel extends JPanel {
-	
+	/*
 	BorderLayout borderLayout = new BorderLayout();
 	GridLayout information = new GridLayout(5,2,5,8);
 	JPanel routeInformation = new JPanel();
 	JPanel routeList = new JPanel();
 	JPanel emptyPanel = new JPanel();
 	JToolBar routeToolBar = new JToolBar();
-	JButton addRoute,removeRoute, findRoute,editRoute,refreshList;
-	JSplitPane routeInfoPane,routePane;
+	JButton addRoute,removeRoute, findRoute, editRoute, refreshList;
+	JSplitPane routeInfoPane, routePane;
 	ImageIcon add, remove, find, edit, refresh;
 	JLabel destination, routeId, startPoint, destinationText, routeIdText, startPointText;
 	AddRoutePanel newRoute;
-	RouteTablePanel newTable;
+	RouteTable newTable;
 	RemoveRoute deleteRoute;
 	EditRoutePanel editRouteInformation;
+	*/
+    RouteCollection routeCollection = new RouteCollection("routes.json");
+    JSplitPane horizPane;
+    RouteTable routeTable = new RouteTable();;
+    AddRoutePanel newRoute;
+    RemoveRoute deleteRoute;
+    EditRoutePanel editRouteInformation;
 	
 	// The work panel is the parent panel for Route and many other
 	// panels
@@ -41,13 +50,12 @@ public class RoutePanel extends JPanel {
 	
 	public RoutePanel(WorkPanel _parentPanel){
 		try {
-			parentPanel = _parentPanel;
+		    parentPanel = _parentPanel;
 			jbInit();
 		}catch(Exception ex) {
 			new ExceptionDialog(ex);
 		}
 	}
-	
 	
 	/**
 	 * Method: jbInit
@@ -58,80 +66,75 @@ public class RoutePanel extends JPanel {
 	 * the panel 
 	 */
 	void jbInit() throws Exception{
-		System.out.println("[DEBUG] Route Panel has Been Created!");
-		
-		this.setLayout(borderLayout);
-		add = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_new.png"));
-		remove = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_remove.png"));
-		find = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/help.png"));
-		edit = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/editproject.png"));
-		refresh = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png"));
-		
-		addRoute = new JButton("Add Route", add);
-		removeRoute = new JButton("Remove Route", remove);
-		findRoute = new JButton("Find Route", find);
-		editRoute = new JButton("Edit Route Information", edit);
-		refreshList = new JButton("Refresh Route List", refresh);
-		
-		destination = new JLabel("Destination: ");
-		routeId = new JLabel("Route ID: ");
-		startPoint = new JLabel("Start Point: ");
-		
-		destinationText = new JLabel("ASU PolyTechnic");
-		routeIdText = new JLabel("001");
-		startPointText = new JLabel("ASU Tempe");
-		
-		destinationText.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-		addRoute.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				newRoutePanel();
-			}
-		});
-		
-		refreshList.addActionListener(new ActionListener() {
+	    setLayout(new BorderLayout());
+        
+        ImageIcon add;
+        ImageIcon remove;
+        ImageIcon edit;
+        ImageIcon refresh;
+        /*Future Implementation: 
+        ImageIcon find;*/
+    
+        JButton addRoute;
+        JButton deleteRoute;
+        JButton editRoute;
+        JButton refreshRouteB;
+        JToolBar routeToolbar;
+    
+        horizPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        horizPane.setRightComponent(routeTable);
+        horizPane.setLeftComponent(new JPanel());
+        horizPane.setDividerLocation(266);
+        
+        add = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_new.png"));
+        remove = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_remove.png"));
+        edit = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/editproject.png"));
+        refresh = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png"));
+        //Possible Future Implementation: 
+        //find = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/help.png"));
+        
+        //addButtonListeners for Add/Remove/Edit
+        addRoute = new JButton("Add Route", add);
+        addRoute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                refreshTable();
+                add();
             }
         });
         
-        removeRoute.addActionListener(new ActionListener() {
+        deleteRoute = new JButton("Remove Route", remove);
+        deleteRoute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 remove();
             }
         });
         
-        editRoute.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        editRoute = new JButton("Edit Route", edit);
+        editRoute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 edit();
             }
         });
-		
-		routeToolBar.setFloatable(false);
-		routeToolBar.addSeparator(new Dimension(8,24));
-		routeToolBar.addSeparator(new Dimension(8,24));
-		routeToolBar.add(addRoute);
-		routeToolBar.add(removeRoute);
-		routeToolBar.add(editRoute);
-		routeToolBar.addSeparator();
-		routeToolBar.add(findRoute);
-
-		routeToolBar.setLayout(information);
-		routeToolBar.add(destination);
-		routeToolBar.add(destinationText);
-		routeToolBar.add(routeId);
-		routeToolBar.add(routeIdText);
-		routeToolBar.add(startPoint);
-		routeToolBar.add(startPointText);
-	
-		routeList.add(new JLabel("Table of Routes Goes Here", JLabel.CENTER));
-		
-		routeInfoPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,routeInformation, emptyPanel);
-		routePane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, routeInfoPane,routeList);
-		routePane.setDividerLocation(250);
-		routePane.setOneTouchExpandable(false);
-		this.add(routeToolBar, BorderLayout.NORTH);
-		this.add(routePane);
+        
+        refreshRouteB = new JButton("Refresh Table", refresh);
+        refreshRouteB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                refreshTable();
+            }
+        });
+        
+        //Add Toolbar buttons
+        routeToolbar = new JToolBar();
+        routeToolbar.setFloatable(false);
+        routeToolbar.add(addRoute);
+        routeToolbar.add(deleteRoute);
+        routeToolbar.add(editRoute);
+        routeToolbar.add(refreshRouteB);
+        
+        //Add Toolbar and Horizontal SplitPane
+        add(routeToolbar, BorderLayout.NORTH);
+        add(horizPane, BorderLayout.CENTER);
+        
+        setVisible(true);   
 	}
 	/**
 	 * Method: newRoutePanel
@@ -139,7 +142,7 @@ public class RoutePanel extends JPanel {
 	 * Return: Void
 	 * Description: Creates a new Add Route Panel when the add route button is pressed
 	 */
-	private void newRoutePanel() {
+	public void add() {
 		newRoute = new AddRoutePanel();
 	}
 	
@@ -167,9 +170,10 @@ public class RoutePanel extends JPanel {
     }
     
     private void refreshTable() {
-        newTable.refreshTable();
-        newTable.revalidate();
-        newTable.repaint();
+        RouteTable freshTable = new RouteTable();
+        horizPane.setRightComponent(freshTable);
+        horizPane.setLeftComponent(new JPanel());
+        horizPane.setDividerLocation(266);
     }
 
 }
