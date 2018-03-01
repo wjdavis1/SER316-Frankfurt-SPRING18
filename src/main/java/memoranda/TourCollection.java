@@ -26,13 +26,17 @@ public class TourCollection  {
 	Vector<TourImpl> tourList;
 	TourImpl tour;
 	String tourCollectionFilePath = "src/main/resources/data/tours/tours.json";
-	 FileReader in;
+	FileReader in;
 	
 	public TourCollection() {
 		tourList = null;
 		tour = null;		
 	}
 	
+	/**
+	 * Constructor creates a TourCollection object from the contents of the file 
+	 * @param fileName
+	 */
 	public TourCollection(String fileName){
 		try{
 			in = new FileReader(fileName);
@@ -53,6 +57,11 @@ public class TourCollection  {
 		  tourList.remove(aTour);
 	  }
 	  
+	  /**
+	   * Returns the tour whose tourID field matches the String argument.
+	   * @param tourID A String representation of a tour's ID 
+	   * @return
+	   */
 	  public TourImpl getTour(String tourID) {
 		  TourImpl aTour = new TourImpl();
 		  for (int i = 0; i < tourList.size(); i++) {
@@ -62,10 +71,17 @@ public class TourCollection  {
 		  return aTour;
 	  }
 	  
-	  public Vector getTourList( ) {
+	  /**
+	   * Returns the TourCollection objects TourImpl type Vector of tours.
+	   * @return tourList - A Vector of TourImple objects
+	   */
+	  public Vector<TourImpl> getTourList( ) {
 		  return tourList; 
 	  }
 	  
+	  /**
+	   * Imports JSONObject from file and parses it to a Vector of TourImpl objects.
+	   */
 	  public void importTourCollection() {
 		  tourList = new Vector<TourImpl>();
 			try {
@@ -74,8 +90,7 @@ public class TourCollection  {
 		 
 			        for (int i=0; i < tours.length; i++) {
 			            tour = new TourImpl((JSONObject)obj.getJSONObject(tours[i]));
-			            tourList.addElement(tour);
-		     	 
+			            tourList.addElement(tour);     	 
 			        }
 
 			}
@@ -84,6 +99,11 @@ public class TourCollection  {
             }
 	  }
 	  
+	  /**
+	   * Creates a meta-JSONObject of TourImpls that have been converted to type JSONObject
+	   * and writes to the specified file location.
+	   * 
+	   */
 	  public void exportTourCollection()  {
 		  
 		  try {
