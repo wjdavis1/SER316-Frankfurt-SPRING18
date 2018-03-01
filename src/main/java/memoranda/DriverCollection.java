@@ -36,7 +36,7 @@ public class DriverCollection implements  Serializable{
 	private Map<String,Driver> driverCollection;
 	private Set<String> driverIDs;
 	
-	private String driversDataPath = "/data/drivers/";
+	private String driversDataPath = "src/main/resources/data/drivers/";
 	private File driversFile;
 	private FileInputStream in;
 	private String fileName;
@@ -155,7 +155,7 @@ public class DriverCollection implements  Serializable{
 	 * Description: Reads in the JSON Objects from the file and converts them into the DriverCollection
 	 */
 	public void readFromFile() {
-		driversFile = new File(main.java.memoranda.ui.AppFrame.class.getResource(driversDataPath).getFile());
+		driversFile = new File(driversDataPath);
 		if(driversFile.exists() && !driversFile.isDirectory()) {
 			System.out.println("[DEBUG] File Exists!");
 			try {
@@ -205,8 +205,8 @@ public class DriverCollection implements  Serializable{
 	 */
 	public static HashMap<String,Driver> getDrivers(){
 		Map<String, Driver> drivers = new HashMap<String, Driver>();
-		String filePath = "/data/drivers/drivers.json";
-		File file = new File(main.java.memoranda.ui.AppFrame.class.getResource(filePath).getFile());
+		String filePath = "src/main/resources/data/drivers/drivers.json";
+		File file = new File(filePath);
 		
 		try {
 			FileInputStream in = new FileInputStream(file);

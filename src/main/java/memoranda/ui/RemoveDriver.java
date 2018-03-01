@@ -68,19 +68,24 @@ public class RemoveDriver extends JFrame  {
     
     private void removeDriver() {
         driverCollection = new DriverCollection("drivers.json");
-        int option = JOptionPane.showConfirmDialog(this, "Are you sure you wish to delete the driver?", "Remove Driver", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(option == JOptionPane.YES_OPTION) {
-            driverCollection.removeDriver(driverIDEntry.getText());
-            try {
-                driverCollection.saveToFile();
-            }catch(IOException ioe) {
-                System.out.println(ioe.getMessage());
+        if(driverCollection.doesDriverExist(driverIDEntry.getText())) {
+            int option = JOptionPane.showConfirmDialog(this, "Are you sure you wish to delete the driver?", "Remove Driver", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(option == JOptionPane.YES_OPTION) {
+                driverCollection.removeDriver(driverIDEntry.getText());
+                try {
+                    driverCollection.saveToFile();
+                }catch(IOException ioe) {
+                    System.out.println(ioe.getMessage());
+                }
+                JOptionPane.showMessageDialog(this, "Driver has been removed");
+                dispose();
+                
+            } else {
+                JOptionPane.showMessageDialog(this," Driver is not deleted!");
+                driverIDEntry.setText(null);
             }
-            JOptionPane.showMessageDialog(this, "Driver has been removed");
-            dispose();
-            
         } else {
-            JOptionPane.showMessageDialog(this,"Driver Could Not Be Found or Driver Is Not In System!");
+            JOptionPane.showMessageDialog(this, "Driver does not exist");
             driverIDEntry.setText(null);
         }
     }
