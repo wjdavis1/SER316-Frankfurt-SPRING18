@@ -13,4 +13,7 @@ public interface Route {
 	String getDestination();
 	String getRouteId();
 	String getStartPoint();
+	void setDestination(String Destination);
+	void setRouteId(String routeId);
+	void setStartPoint(String startPoint);
 }
