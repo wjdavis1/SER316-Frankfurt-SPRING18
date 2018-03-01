@@ -19,6 +19,8 @@ public interface Bus {
 	void setID(int id);						// Method to set Bus ID
 	int getNumberOfSeats();				// Method to return number of seats in a bus
 	int getId();							// Method to retun bus ID
+	String getName();					// Method tro return bus name
+	void setName(String name);						// Method to set bus name
 	void setNumberOfSeats(int seats);				// Method to set number Of Seats in a bus
 	void addToSchedule(Date scheduleDate, Time scheduleTime);				// Method to add a new schedule to bus schedule
 	void removeFromSchedule(Date scheduleDate, Time scheduleTime);			// Method to remove schedule from bus schedule

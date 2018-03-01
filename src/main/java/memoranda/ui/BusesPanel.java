@@ -34,7 +34,10 @@ import main.java.memoranda.util.Util;
 import org.json.*;
 import java.io.*;
 
-/*BusesPanel $*/
+/*BusesPanel 
+ * AUTHOR: TRESOR CYUBAHIRO
+ * 
+ * */
 public class BusesPanel extends JPanel {
     BorderLayout borderLayout1 = new BorderLayout();
     JToolBar toolBar = new JToolBar();
@@ -57,8 +60,6 @@ public class BusesPanel extends JPanel {
     void jbInit() throws Exception {
         toolBar.setFloatable(false);
         this.setLayout(borderLayout1);
-        /*newBusB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));*/
         newBusB.setText(Local.getString("New"));
         newBusB.setEnabled(true);
         newBusB.setMaximumSize(new Dimension(24, 24));
@@ -82,16 +83,6 @@ public class BusesPanel extends JPanel {
 
         PopupListener ppListener = new PopupListener();
         scrollPane.addMouseListener(ppListener);
-        //busTable.addMouseListener(ppListener);
-
-//        busTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-//            public void valueChanged(ListSelectionEvent e) {
-//                boolean enbl = (busTable.getRowCount() > 0) && (busTable.getSelectedRow() > -1);
-//
-//                removeResB.setEnabled(enbl); ppRemoveRes.setEnabled(enbl);
-//                ppRun.setEnabled(enbl);
-//            }
-//        });
         refreshB.setBorderPainted(false);
         refreshB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -137,21 +128,10 @@ public class BusesPanel extends JPanel {
     busPPMenu.addSeparator();
     busPPMenu.add(ppRefresh);
 	
-		// remove resources using the DEL key
-//		busTable.addKeyListener(new KeyListener() {
-//			public void keyPressed(KeyEvent e){
-//				if(busTable.getSelectedRows().length>0 
-//					&& e.getKeyCode()==KeyEvent.VK_DELETE)
-//					ppRemoveRes_actionPerformed(null);
-//			}
-//			public void	keyReleased(KeyEvent e){}
-//			public void keyTyped(KeyEvent e){} 
-//		});
     }
 
     void newBusB_actionPerformed(ActionEvent e) {
     		AddBusDialog dlg = new AddBusDialog(App.getFrame(), Local.getString("Add New Bus"));
-        //AddResourceDialog dlg = new AddResourceDialog(App.getFrame(), Local.getString("New resource"));
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
         dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height - dlg.getSize().height) / 2 + loc.y);
@@ -162,48 +142,28 @@ public class BusesPanel extends JPanel {
 
     class PopupListener extends MouseAdapter {
 
-        public void mouseClicked(MouseEvent e) {
-//            if ((e.getClickCount() == 2) && (busTable.getSelectedRow() > -1)) {
-//                String path = (String) busTable.getValueAt(busTable.getSelectedRow(), 3);
-//                if (path.length() >0)
-//                    runApp(path);
-//                else
-//                    runBrowser((String) busTable.getValueAt(busTable.getSelectedRow(), 0));
-//            }
-//            //editTaskB_actionPerformed(null);
-        }
-
                 public void mousePressed(MouseEvent e) {
-                    //maybeShowPopup(e);
+                    
                 }
 
                 public void mouseReleased(MouseEvent e) {
-                    //maybeShowPopup(e);
+                  
                 }
 
-//                private void maybeShowPopup(MouseEvent e) {
-//                    if (e.isPopupTrigger()) {
-//                        busPPMenu.show(e.getComponent(), e.getX(), e.getY());
-//                    }
-//                }
 
     }
     void refreshB_actionPerformed(ActionEvent e) {
-        //busTable.tableChanged();
+    	
     }
 
   void ppRun_actionPerformed(ActionEvent e) {
-//    String path = (String) busTable.getValueAt(busTable.getSelectedRow(), 3);
-//                if (path.length() >0)
-//                    runApp(path);
-//                else
-//                    runBrowser((String) busTable.getValueAt(busTable.getSelectedRow(), 0));
+
   }
   void ppNewBus_actionPerformed(ActionEvent e) {
     newBusB_actionPerformed(e);
   }
 
   void ppRefresh_actionPerformed(ActionEvent e) {
-     //busTable.tableChanged();
+
   }
 }

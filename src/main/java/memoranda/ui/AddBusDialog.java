@@ -16,21 +16,18 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JCheckBox;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.event.CaretEvent;
-
-import org.json.*;
 
 import main.java.memoranda.BusImpl;
 import main.java.memoranda.util.Local;
 
-/*$Id: AddResourceDialog.java,v 1.12 2007/03/20 06:21:46 alexeya Exp $*/
+/*
+ * AUTHOR: TRESOR CYUBAHIRO
+ * SER 316
+ * */
 public class AddBusDialog extends JDialog {
 	
     JPanel dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));

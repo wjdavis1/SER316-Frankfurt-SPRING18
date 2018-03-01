@@ -41,10 +41,28 @@ public class BusImpl implements Bus {
     public void setID(int id) {
         this.id = id;
     }
-    public BusImpl(int id, int seats) {
+    public BusImpl(int id, String name,int seats) {
         this.id = id;
+        this.name = name;
         this.numberOfSeats = seats;
     }
+    
+	/*
+	 * (non-Javadoc)
+	 * @see main.java.memoranda.Bus#setName()
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+    /*
+     * (non-Javadoc)
+     * @see main.java.memoranda.Bus#getname()
+     */
+	public String getName() {
+		
+		return name;
+	}
     
     /*
      * @see main.java.memoranda.Bus#getNumberOfSeats()
@@ -139,5 +157,4 @@ public class BusImpl implements Bus {
             e.printStackTrace();
         }
     }
-    
 }

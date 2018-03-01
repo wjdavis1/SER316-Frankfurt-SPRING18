@@ -1,48 +1,48 @@
 package main.java.memoranda.ui;
 
-import java.awt.Component;
 import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.Date;
 import java.util.Vector;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-/*Bus Table. SER316 Frankfurt */
+import main.java.memoranda.BusImpl;
+
+
+
+/*Bus Table. SER316 Frankfurt 
+ * AUTHOR: TRESOR CYUBAHIRO
+ * SER 316
+ * */
 public class BusTable extends JTable {
     
     static Object[] columnNames = {"ID", "Name", "Number Of Seats"};
-    static Object[][] data = new Object[][] {
-        {1, "East", 23},
-        {3, "West", 45}
-    };
-    JSONArray dataObj = null;
+    Vector<BusImpl> busesList;
+    JSONObject dataObj = null;
     
     DefaultTableModel tableModel  = null;   
+    
     public BusTable() {
-            super();
-        initTable();
+        super();
         this.setShowGrid(false);
         this.setFont(new Font("Dialog",0,11));
-        dataObj = new JSONArray();
+        dataObj = new JSONObject();
+        loadBuses();
+        tableModel = new DefaultTableModel();
+        this.setModel(tableModel);
         initColums();
         initTable();
-        loadBuses();
     }
 
+    	// Method to add titles to table
     void initColums() {
             for (int i = 0; i < columnNames.length; i++) {
                 TableColumn col = new TableColumn();
@@ -52,19 +52,22 @@ public class BusTable extends JTable {
         }
     }
 
+    	// Method to repopulate table
     public void tableChanged() {
         initTable();
         initColums();
         updateUI();
     }
 
+    	// Method to initialize table with data
     public void initTable() {
-
+    		
     }
-    
+
+    // Method to load all current added buses
     private void loadBuses() {
             readFile();
-            //System.out.println(dataObj[0]);
+
     }
     
     // Method to read data file
@@ -76,7 +79,7 @@ public class BusTable extends JTable {
             busesFile = new File(App.class.getResource(dataStorageFile).getFile());
             try {
                 dataIn = new FileInputStream(busesFile);
-                dataObj = new JSONArray(new JSONTokener(dataIn));
+                dataObj = new JSONObject(new JSONTokener(dataIn));
                 
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
