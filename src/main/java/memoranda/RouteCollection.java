@@ -15,14 +15,14 @@ import java.util.Set;
 import java.util.HashMap;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.File;
 
 import main.java.memoranda.RouteImpl;
-import org.json.*;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 
 /**
@@ -30,9 +30,9 @@ import org.json.*;
  * Description:  A class that holds a HashSet of Routes, organized by their ID and the Route Object.
  *
  */
-public class RouteCollection implements JSONString, Serializable{
+public class RouteCollection implements Serializable{
 	
-	private Map<String,RouteImpl> routeCollection;
+	private Map<String,Route> routeCollection;
 	private Set<String> routeIds;
 	
 	private String routeDataPath = "/data/routes/";
@@ -206,7 +206,7 @@ public class RouteCollection implements JSONString, Serializable{
             FileInputStream in = new FileInputStream(file);
             JSONObject obj = new JSONObject(new JSONTokener(in));
             
-            String[] ids = JSONObject.getRouteId(obj);
+            String[] ids = JSONObject.getNames(obj);
             for(int i = 0; i < ids.length; i++) {
                 Route newRoute = new RouteImpl((JSONObject)obj.getJSONObject(ids[i]));
                 routes.put(ids[i], newRoute);
