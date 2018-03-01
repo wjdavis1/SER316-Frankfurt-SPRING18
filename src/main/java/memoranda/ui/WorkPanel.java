@@ -44,21 +44,15 @@ public class WorkPanel extends JPanel {
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
-<<<<<<< HEAD
-		
 	// Buses Panel declaration - Tresor Cyubahiro
 	public BusesPanel busesPanel = new BusesPanel();
 	//Buses Button Tresor Cyubahiro
 	public JButton busesB = new JButton();
-	
-=======
 
 	public JButton driversB = new JButton();
 
 	public JButton toursB = new JButton();
-	
 
->>>>>>> dev
 	JButton currentB = null;
 	Border border1;
 
@@ -218,7 +212,6 @@ public class WorkPanel extends JPanel {
 		filesB.setMaximumSize(new Dimension(60, 80));
 		filesB.setBackground(Color.white);
 		
-<<<<<<< HEAD
 		// Buses Button Settings - Tresor Cyubahiro
 		busesB.setSelected(true);
 		busesB.setMargin(new Insets(0, 0, 0, 0));
@@ -245,8 +238,7 @@ public class WorkPanel extends JPanel {
 		busesB.setOpaque(false);
 		busesB.setMaximumSize(new Dimension(60, 80));
 		busesB.setBackground(Color.white);
-=======
-
+		
 		//Testing Adding Driver GUI Button
 		driversB.setSelected(true);
 		driversB.setMargin(new Insets(0,0,0,0));
@@ -296,44 +288,32 @@ public class WorkPanel extends JPanel {
 		toursB.setMargin(new Insets(0, 0, 0, 0));
 		toursB.setSelected(true);
 
-		
-
->>>>>>> dev
-		
+	
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 		panel.add(filesPanel, "FILES");
-<<<<<<< HEAD
 		
 		// ADD Bus Panel Tresor Cyubahiro
 		panel.add(busesPanel, "BUSES");
 		
-=======
-
 		panel.add(driverPanel, "DRIVERS");
 
 		panel.add(tourPanel, "TOURS");
 
->>>>>>> dev
 		toolBar.add(agendaB, null);
 		toolBar.add(eventsB, null);
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
-<<<<<<< HEAD
-		
+
 		//Add Buses Button - Tresor Cyubahiro
 		toolBar.add(busesB, null);
 		
-=======
-
 		toolBar.add(driversB, null);
 
 		toolBar.add(toursB, null);
-		
 
->>>>>>> dev
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
@@ -357,11 +337,8 @@ public class WorkPanel extends JPanel {
 				eventsB_actionPerformed(null);
 			else if (pan.equals("FILES"))
 				filesB_actionPerformed(null);
-<<<<<<< HEAD
 			else if (pan.equals("BUSES"))
 				busesB_actionPerformed(null);
-=======
-
 			else if(pan.equals("DRIVERS")) {
 				driversB_actionPerformed(null);
 			}
@@ -369,7 +346,6 @@ public class WorkPanel extends JPanel {
 			else if (pan.equals("TOURS"))
 				toursB_actionPerformed(null);
 
->>>>>>> dev
 		}
 	}
 
@@ -407,13 +383,12 @@ public class WorkPanel extends JPanel {
 		Context.put("CURRENT_PANEL", "FILES");
 	}
 	
-<<<<<<< HEAD
 	// buses ToolBar Button Action
 	public void busesB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "BUSES");
 		setCurrentButton(busesB);
 		Context.put("CURRENT_PANEL", "BUSES");
-=======
+	}
 	//Driver Action Event When Button is pressed
 	public void driversB_actionPerformed(ActionEvent e) {
 		System.out.println("[DEBUG] Drivers has been pressed");
@@ -421,7 +396,6 @@ public class WorkPanel extends JPanel {
 		dailyItemsPanel.selectPanel("DRIVERS");
 		setCurrentButton(driversB);
 		Context.put("CURRENT_PANEL", "DRIVERS");
->>>>>>> dev
 	}
 
 	public void toursB_actionPerformed(ActionEvent e) {
