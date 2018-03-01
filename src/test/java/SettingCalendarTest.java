@@ -37,9 +37,10 @@ class SettingCalendarTest {
 		
 		myDate.set(2018, Calendar.AUGUST, 26);
 		
-
+		long testCalendarDate = testCalendar2.getDate().getTime();
+		long testMyDate = myDate.getTimeInMillis();
 		
-		assertEquals(testCalendar2.getDate().getTime(), myDate.getTimeInMillis());
+		assertEquals(testCalendarDate, testMyDate);
 	}
 	
 	@Test
@@ -51,7 +52,10 @@ class SettingCalendarTest {
 
 		Calendar today = Calendar.getInstance();
 		
-		assertEquals(testToday.getDate().getTime(), today.getTimeInMillis());
+		long testTodaySec = testToday.getDate().getTime();
+		long todaySec = today.getTimeInMillis();
+		
+		assertEquals(testTodaySec, todaySec);
 		
 	}
 	
@@ -67,7 +71,10 @@ class SettingCalendarTest {
 		
 		yesterday.roll(Calendar.DATE, false);
 		
-		assertEquals(testYesterday.getDate().getTime(), yesterday.getTimeInMillis());
+		long yesterdaySec = yesterday.getTimeInMillis();
+		long testYesterdaySec = testYesterday.getDate().getTime();
+		
+		assertEquals(testYesterdaySec, yesterdaySec);
 	}
 	
 	@Test
@@ -80,7 +87,10 @@ class SettingCalendarTest {
 		Calendar tomorrow = Calendar.getInstance();
 		tomorrow.roll(Calendar.DATE, true);
 		
-		assertEquals(testTomorrow.getDate().getTime(), tomorrow.getTimeInMillis());
+		long testTomorrowSec = testTomorrow.getDate().getTime();
+		long tomorrowSec = tomorrow.getTimeInMillis();
+		
+		assertEquals(testTomorrowSec, tomorrowSec);
 	}
 
 }
